@@ -78,3 +78,8 @@ ul {
         ul.DropMenu li:hover > ul {
             display: block;
         }
+
+#wrapper {
+    width: 980px;
+    margin: 0 auto;
+}
