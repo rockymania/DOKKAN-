@@ -21,6 +21,12 @@
         .flexslider{
             width:auto;
         }
+        #MenuButton{
+            margin-left:10px;
+        }
+        #nav{
+            height:100px;
+        }
     </style>
 </head>
 <body>
@@ -28,8 +34,8 @@
     
     <div id="header">
         <div class="flexslider">
-          <ul class="slides">
-            <li>
+          <ul class="slides" id="BannerMain">
+<%--            <li>
                <a href="V_Test.aspx" > <img src="../Image/Top1.jpg" /></a>
             </li>
             <li>
@@ -40,7 +46,7 @@
             </li>
             <li>
               <a href="V_Test2.aspx" > <img src="../Image/Top4.jpg" /></a>
-            </li>
+            </li>--%>
           </ul>
         </div>
         <div id="MenuButton"></div>
@@ -51,9 +57,34 @@
 </div>
 
     <script>
-        // Can also be used with $(document).ready()
-        $(document).ready(function () {
+        function Init() {
+            QueryBanner();
+        }
+
+        function QueryBanner() {
+            $.ajax(
+                {
+                    type: "GET",
+                    dataType: "text",
+                    url: "../Model/M_GetBanner.aspx",
+                    success: function (result) {
+                        CreateBanner(result);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+        }
+
+        function CreateBanner(result) {
+            $("#BannerMain").append(result);
+
             InitFlexSlider();
+        }
+
+        $(document).ready(function () {
+            
+            Init();
         });
 
         function InitFlexSlider() {
