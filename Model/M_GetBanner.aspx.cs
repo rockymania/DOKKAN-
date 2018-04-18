@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
+using Dokkan;
 
 public partial class Model_M_GetBanner : System.Web.UI.Page
 {
@@ -22,7 +23,12 @@ public partial class Model_M_GetBanner : System.Web.UI.Page
     {
         BannerData[] mData;
         string json_Data = "";
-        using (StreamReader sr = new StreamReader(Server.MapPath("~")+ LoadDataPath, Encoding.UTF8))
+        string CheckPath = "~";
+        if (SystemSetting.IsRelease)
+            CheckPath = "~/Dokkan/";
+
+
+        using (StreamReader sr = new StreamReader(Server.MapPath(CheckPath) + LoadDataPath, Encoding.UTF8))
         {
             string str = sr.ReadToEnd();
             mData = JsonConvert.DeserializeObject<BannerData[]>(str);
