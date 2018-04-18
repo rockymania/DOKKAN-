@@ -196,7 +196,7 @@ html[xmlns] .flexslider .slides {
 .flex-control-nav {
   width: 100%;
   position: absolute;
-  bottom: -40px;
+  bottom: 0px;
   text-align: center;
 }
 .flex-control-nav li {
@@ -272,8 +272,4 @@ html[xmlns] .flexslider .slides {
     opacity: 1;
     right: 10px;
   }
-
-    .flexslider .flex-control-nav .flex-control-paging {
-        margin: 100px;
-    }
 }
