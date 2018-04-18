@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="V_TempView.aspx.cs" Inherits="View_V_TempView" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="View_index" %>
 
 <!DOCTYPE html>
 
@@ -9,7 +9,7 @@
     <script type="text/javascript" src="http://flexslider.woothemes.com/js/jquery.flexslider.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/flexslider.css" media="all" />
     <link rel="stylesheet" type="text/css" href="../css/layout.css" />
-    <title>TempView</title>
+    <title>首頁</title>
     <style>
         
         .flexslider .slides li img{
@@ -65,3 +65,4 @@
     <script type="text/javascript" src="../Js/MenuButton.js"></script>
 </body>
 </html>
+
