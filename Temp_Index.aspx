@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="V_TempView.aspx.cs" Inherits="View_V_TempView" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Temp_Index.aspx.cs" Inherits="Temp_Index" %>
 
 <!DOCTYPE html>
 
@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="http://flexslider.woothemes.com/js/jquery.flexslider.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/flexslider.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="../css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/css/flexslider.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/css/layout.css" />
     <title>TempView</title>
     <style>
         
@@ -93,6 +93,6 @@
             });
         }
     </script>
-    <script type="text/javascript" src="../Js/MenuButton.js"></script>
+    <script type="text/javascript" src="/Js/MenuButton.js"></script>
 </body>
 </html>

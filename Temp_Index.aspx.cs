@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class View_V_TempView : System.Web.UI.Page
+public partial class Temp_Index : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
