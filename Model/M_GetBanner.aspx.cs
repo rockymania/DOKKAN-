@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
-using Dokkan;
+//using Dokkan;
 
 public partial class Model_M_GetBanner : System.Web.UI.Page
 {

@@ -2,24 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+//using System.Security.Cryptography;
 
 /// <summary>
 /// SystemSetting 的摘要描述
 /// </summary>
 
-namespace Dokkan
-{ 
+//namespace Dokkan
+//{
     public class SystemSetting
     {
-        public SystemSetting()
-        {
-            //
-            // TODO: 在這裡新增建構函式邏輯
-            //
-
-          
-        }
-
+        public static string AA = "";
         public static bool IsRelease
         {
             get
@@ -46,4 +39,4 @@ namespace Dokkan
             }
         }
     }
-}
+//}
