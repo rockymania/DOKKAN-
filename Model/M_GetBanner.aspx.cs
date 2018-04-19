@@ -24,7 +24,7 @@ public partial class Model_M_GetBanner : System.Web.UI.Page
         BannerData[] mData;
         string json_Data = "";
         string CheckPath = "~";
-        if (SystemSetting.IsRelease)
+        if (GetIsDebug() == false)
             CheckPath = "~/Dokkan/";
 
 
@@ -39,4 +39,38 @@ public partial class Model_M_GetBanner : System.Web.UI.Page
 
         Response.Write(json_Data);
     }
+
+    private bool GetIsDebug()
+    {
+        bool isLocal = HttpContext.Current.Request.IsLocal;
+        if (!isLocal)
+        {
+            //記錄資料1
+            return false;
+        }
+        return true;
+    }
+
+    //private bool GetIsDebug()
+    //{
+    //    //System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
+    //    //if (0 < rootWebConfig.AppSettings.Settings.Count)
+    //    //{
+    //    //    System.Configuration.KeyValueConfigurationElement customSetting = rootWebConfig.AppSettings.Settings["Version"];
+    //    //    if (null != customSetting)
+    //    //    {
+    //    //        if (customSetting.Value == "Debug")
+    //    //        {
+    //    //            return true;
+    //    //        }
+    //    //        else
+    //    //        {
+    //    //            return false;
+    //    //        }
+    //    //    }
+    //    //    else
+    //    //        return true;
+    //    //}
+    //    return true;
+    //}
 }
