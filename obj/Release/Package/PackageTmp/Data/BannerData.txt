@@ -1,6 +1,0 @@
-[{"BannerName":"..\\Image\\Eagle.jpg","BannerUrl":"V_DrinkMenu.aspx"},
-{"BannerName":"..\\Image\\Tiger.jpg","BannerUrl":"V_FoodMenu.aspx"},
-{"BannerName":"..\\Image\\Horse.jpg","BannerUrl":"V_MessageBoard.aspx"},
-{"BannerName":"..\\Image\\Dragon.jpg","BannerUrl":"V_ImageMain.aspx"},
-{"BannerName":"..\\Image\\Cat.jpg","BannerUrl":"#"},
-{"BannerName":"..\\Image\\Dog.jpg","BannerUrl":"index.aspx"}]
