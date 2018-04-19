@@ -1,0 +1,9 @@
+D:\Dokkan\Dokkan\bin\Dokkan.dll.config
+D:\Dokkan\Dokkan\bin\Dokkan.dll
+D:\Dokkan\Dokkan\bin\Dokkan.pdb
+D:\Dokkan\Dokkan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Dokkan\Dokkan\bin\Newtonsoft.Json.dll
+D:\Dokkan\Dokkan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Dokkan\Dokkan\obj\Release\Dokkan.csproj.CoreCompileInputs.cache
+D:\Dokkan\Dokkan\obj\Release\Dokkan.dll
+D:\Dokkan\Dokkan\obj\Release\Dokkan.pdb
