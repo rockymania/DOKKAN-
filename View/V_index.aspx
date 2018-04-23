@@ -38,7 +38,8 @@
         </div>
         <div id="MenuButton"></div>
     </div>
-    <div id="nav"></div>
+    <div id="nav">
+    </div>
     <div id="content"></div>
     <div id="footer"></div>
 </div>

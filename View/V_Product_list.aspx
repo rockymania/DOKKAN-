@@ -33,13 +33,12 @@
             var url = location.href;
             //取得問號之後的值
             var temp = url.split("?");
-            //將值再度分開
-            var vars = temp[1].split("&");
-            //取得kind
-            var kinds = temp[1].split("kind=");
+            //取得kind=之後的值(只有一個參數的時候) hxxp://Test.net/Test.aspx?kind=1  
+            var kinds = url.split("?kind=");
             //初始化
-            Init(kinds[1]);
-
+            if (kinds.length > 1)
+                Init(kinds[1]);
+           
             //if (kinds[1] == 1) {
             //    document.title = "AA";
             //} else
