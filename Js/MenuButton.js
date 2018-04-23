@@ -6,9 +6,9 @@
     "<!--這是一個段落-->" +
     "<li><a href='#'>商品種類</a>" +
     "<ul>" +
-    "<li><a href='V_DrinkMenu.aspx'>飲料商品</a>" +
+    "<li><a href='V_RockyView.aspx?kind=1'>飲料商品</a>" +
     "</li>" +
-    "<li><a href='V_FoodMenu.aspx'>餐點商品</a>" +
+    "<li><a href='V_RockyView.aspx?kind=2'>餐點商品</a>" +
     "</li>" +
     "</ul>" +
     "</li>" +

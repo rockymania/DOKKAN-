@@ -1,0 +1,7 @@
+﻿[{"ProductID":1,"ProductName":"GIGABYTE Sabre 15G電競筆電","ProductUrl":"#","ProductImage":"..\\Image\\Product\\GreenTea.jpg"},
+{"ProductID":2,"ProductName":"Apple iPhone 7 Plus (128G)","ProductUrl":"##","ProductImage":"..\\Image\\Product\\HoneyGreenTea.jpg"},
+{"ProductID":3,"ProductName":"戰神 God of War","ProductUrl":"###","ProductImage":"..\\Image\\Product\\Lemon.jpg"},
+{"ProductID":3,"ProductName":"通過美軍九項軍規/快速充電/H&K音效","ProductUrl":"###","ProductImage":"..\\Image\\Product\\Lemon.jpg"},
+{"ProductID":3,"ProductName":"世界最輕14吋商務筆記型電腦","ProductUrl":"###","ProductImage":"..\\Image\\Product\\Lemon.jpg"},
+{"ProductID":3,"ProductName":"ASUS B9440UA 14吋窄邊輕薄商用筆電","ProductUrl":"###","ProductImage":"..\\Image\\Product\\Lemon.jpg"},
+{"ProductID":4,"ProductName":"戰神","ProductUrl":"###","ProductImage":"..\\Image\\Product\\MilkTea.jpg"}]

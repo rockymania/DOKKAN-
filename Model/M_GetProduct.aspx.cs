@@ -18,31 +18,48 @@ public partial class Model_M_GetProduct : System.Web.UI.Page
         public int ProductID;
     }
 
-    private string LoadDataPath = "Data/ProductData.txt";
+    private string LoadDataPath = "Data/ProductData";
+    private string LoadDataEnd = ".txt";
     private string CreateString2 = "<td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> <a href=\"{2}\"> <p>{3}</p></p></td>";
     private string CreateString = "<table class=\"TableItem\"><tr><td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> <a href=\"{2}\"> <p>{3}</p></p></td></tr></table>";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        ProductData[] mData;
-        string json_Data = "";
-        string CheckPath = "~";
-        if (GetIsDebug() == false)
-            CheckPath = "~/Dokkan/";
 
-        using (StreamReader sr = new StreamReader(Server.MapPath(CheckPath) + LoadDataPath, Encoding.UTF8))
+        string aKind = "";
+
+        try
         {
-            string str = sr.ReadToEnd();
-            mData = JsonConvert.DeserializeObject<ProductData[]>(str);
+            aKind = Request.QueryString["Kind"];
+
+
+            ProductData[] mData;
+            string json_Data = "";
+            string CheckPath = "~";
+            if (GetIsDebug() == false)
+                CheckPath = "~/Dokkan/";
+
+            using (StreamReader sr = new StreamReader(Server.MapPath(CheckPath) + LoadDataPath + aKind + LoadDataEnd, Encoding.UTF8))
+            {
+                string str = sr.ReadToEnd();
+                mData = JsonConvert.DeserializeObject<ProductData[]>(str);
+            }
+
+
+            for (int i = 0; i < mData.Length; i++)
+            {
+                json_Data += string.Format(CreateString, mData[i].ProductUrl, mData[i].ProductImage, mData[i].ProductUrl, mData[i].ProductName);
+            }
+
+            Response.Write(json_Data);
+        }
+        catch
+        {
+
         }
 
 
-        for (int i = 0; i < mData.Length; i++)
-        {
-            json_Data += string.Format(CreateString, mData[i].ProductUrl, mData[i].ProductImage, mData[i].ProductUrl, mData[i].ProductName);
-        }
-
-        Response.Write(json_Data);
+        
 
 
 

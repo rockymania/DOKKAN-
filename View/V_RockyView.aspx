@@ -8,40 +8,11 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="http://flexslider.woothemes.com/js/jquery.flexslider.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="../css/ProductList.css" />
     <title>商品區A</title>
-    <style>
-        td>p{
-            text-align:center;
-        }
-        td>p>a>img{
-            height:250px;
-            width:250px;
-            top:5px;
-        }
-        #nav{
-            width:980px;
-            padding-top:50px;
-            margin:auto;
-            
-        }
-        #productTable{
-            width:980px;
-            background-color:aqua;
-            display:inline-block;
-        }
-        .TableItem{
-            float:left;
-            padding:0px 0px 0px 15px; 
-            margin: auto;
-        }/*上 右 下 左*/
-         .ProductPage{
-             background-image:url("../Image/Product/background.jpg");
-         }
-    </style>
 </head>
 <body >
     <div id="wrapper" >
-    
     <div id="header">
         <p><img src="../Image/PageTop.jpg" /></p>
         <div id="MenuButton"></div>
@@ -54,34 +25,32 @@
     </div>
 
     <script>
+
+        //要先解析開啟的網頁傳輸進來的資料
+
         $(document).ready(function () {
             Init();
         });
 
-        function Init() {
+        function Init(id) {
             QueryProduct();
         }
 
-        function QueryProduct() {
+        function QueryProduct(id) {
             $.ajax(
                 {
-                    type: "GET",
-                    dataType: "text",
-                    url: "../Model/M_GetProduct.aspx",
-                    success: function (result) {
-                        CreateProduct(result);
-                    },
-                    error: function () {
-                        alert("error");
-                    }
+                    //type: "GET",
+                    //dataType: "text",
+                    //data: "&Kind=" + id,
+                    //url: "../Model/M_GetProduct.aspx",
+                    //success: function (result) {
+                    //    CreateProduct(result);
+                    //},
+                    //error: function () {
+                    //    alert("error");
+                    //}
                 });
         }
-
-        function CreateProduct(result) {
-            $("#nav").append(result);
-            //document.all["nav"].insertAdjacentHTML("BeforeEnd", result);
-        }
-
     </script>
 
     <script type="text/javascript" src="../Js/MenuButton.js"></script>

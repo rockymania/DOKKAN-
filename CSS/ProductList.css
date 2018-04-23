@@ -1,0 +1,23 @@
+﻿body {
+}
+
+td > p {
+    text-align: center;
+}
+
+td > p > a > img {
+   height: 250px;
+   width: 250px;
+   top: 5px;
+}
+
+#nav {
+    width: 980px;
+    padding-top: 50px;
+}
+
+.TableItem {
+    float: left;
+    padding: 0px 0px 0px 15px;
+}
+/*上 右 下 左*/
