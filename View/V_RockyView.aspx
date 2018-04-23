@@ -21,34 +21,32 @@
         #nav{
             width:980px;
             padding-top:50px;
+            margin:auto;
+            
         }
         #productTable{
             width:980px;
             background-color:aqua;
             display:inline-block;
         }
+        .TableItem{
+            float:left;
+            padding:0px 0px 0px 15px; 
+            margin: auto;
+        }/*上 右 下 左*/
+         .ProductPage{
+             background-image:url("../Image/Product/background.jpg");
+         }
     </style>
 </head>
-<body>
-    <div id="wrapper">
+<body >
+    <div id="wrapper" >
     
     <div id="header">
         <p><img src="../Image/PageTop.jpg" /></p>
         <div id="MenuButton"></div>
     </div>
     <div id="nav">
-        <table  id="productTable">
-<%--            <tr>
-                <td>
-                    <p>
-                        <a href="#">
-                            <img src="../Image/Product/GreenTea.jpg"/>
-                        </a>
-                        <a href="#" style ="text-decoration:none"><p> Name </p></a>
-                    </p>
-                </td>
-            </tr>--%>
-        </table>
         <!-- 動態塞資料 -->
     </div>
     <div id="content"></div>
@@ -80,7 +78,8 @@
         }
 
         function CreateProduct(result) {
-            $("#productTable").append(result);
+            $("#nav").append(result);
+            //document.all["nav"].insertAdjacentHTML("BeforeEnd", result);
         }
 
     </script>

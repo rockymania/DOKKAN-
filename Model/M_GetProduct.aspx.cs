@@ -19,9 +19,8 @@ public partial class Model_M_GetProduct : System.Web.UI.Page
     }
 
     private string LoadDataPath = "Data/ProductData.txt";
-    private string CreateString = "<td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> <a href=\"{2}\"> <p>{3}</p></p></td>";
-    private string TableStart = "<tr>";
-    private string TableEnd = "</tr>";
+    private string CreateString2 = "<td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> <a href=\"{2}\"> <p>{3}</p></p></td>";
+    private string CreateString = "<table class=\"TableItem\"><tr><td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> <a href=\"{2}\"> <p>{3}</p></p></td></tr></table>";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -38,29 +37,29 @@ public partial class Model_M_GetProduct : System.Web.UI.Page
         }
 
 
-        //for (int i = 0; i < mData.Length; i++)
+        for (int i = 0; i < mData.Length; i++)
+        {
+            json_Data += string.Format(CreateString, mData[i].ProductUrl, mData[i].ProductImage, mData[i].ProductUrl, mData[i].ProductName);
+        }
+
+        Response.Write(json_Data);
+
+
+
+        //string[] stringArray = new string[(mData.Length / 3) + 1];
+        //for (int i = 0, j = 0; i < mData.Length; i++)
         //{
-        //    json_Data += string.Format(CreateString, mData[i].ProductUrl, mData[i].ProductImage, mData[i].ProductUrl, mData[i].ProductName);
+        //    stringArray[j] += string.Format(CreateString, mData[i].ProductUrl, mData[i].ProductImage, mData[i].ProductUrl, mData[i].ProductName);
+
+        //    if (i % 3 == 2)
+        //        j++;
         //}
-
-        //Response.Write(json_Data);
-
-
-
-        string[] stringArray = new string[(mData.Length / 3) + 1];
-        for (int i = 0, j = 0; i < mData.Length; i++)
-        {
-            stringArray[j] += string.Format(CreateString, mData[i].ProductUrl, mData[i].ProductImage, mData[i].ProductUrl, mData[i].ProductName);
-
-            if (i % 3 == 2)
-                j++;
-        }
-        string FinalString = "";
-        for (int i = 0; i < stringArray.Length; i++)
-        {
-            FinalString += string.Format("<tr>{0}</tr>", stringArray[i]);
-        }
-        Response.Write(FinalString);
+        //string FinalString = "";
+        //for (int i = 0; i < stringArray.Length; i++)
+        //{
+        //    FinalString += string.Format("<tr>{0}</tr>", stringArray[i]);
+        //}
+        //Response.Write(FinalString);
     }
 
     private bool GetIsDebug()
