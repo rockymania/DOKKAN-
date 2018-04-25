@@ -77,7 +77,7 @@
             <div id="content2"></div>
             <p id="ValueBox">
                 <button type="button" onclick ="CutCount()">-</button>
-                <input id="Number" type="number" style="width:30px;text-align:center" value="0" />
+                <input id="Number" type="number" style="width:30px;text-align:center" value="1" />
                 <button type="button" onclick="AddCount()">+</button>
             </p>
         </div>
@@ -90,12 +90,12 @@
             QueryDetail(id);
         }
 
-        function QueryBanner() {
+        function QueryBanner(id) {
             $.ajax(
                 {
                     type: "GET",
-                    dataType: "text",
-                    url: "../Model/M_GetBanner.aspx",
+                    data: "&Kind=" + id,
+                    url: "../Model/M_GetProductPic.aspx",
                     success: function (result) {
                         CreateBanner(result);
                     },
