@@ -20,7 +20,6 @@ public partial class Model_M_GetProduct : System.Web.UI.Page
 
     private string LoadDataPath = "Data/ProductData";
     private string LoadDataEnd = ".txt";
-    private string CreateString2 = "<td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> <a href=\"{2}\"> <p>{3}</p></p></td>";
     private string CreateString = "<table class=\"TableItem\"><tr><td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> <a href=\"{2}\"> <p>{3}</p></p></td></tr></table>";
 
     protected void Page_Load(object sender, EventArgs e)

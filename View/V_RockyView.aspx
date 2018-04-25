@@ -18,7 +18,6 @@
         <div id="MenuButton"></div>
     </div>
     <div id="nav">
-        <!-- 動態塞資料 -->
     </div>
     <div id="content"></div>
     <div id="footer"></div>
@@ -26,10 +25,8 @@
 
     <script>
 
-        //要先解析開啟的網頁傳輸進來的資料
-
         $(document).ready(function () {
-            Init();
+            Init();   
         });
 
         function Init(id) {
