@@ -85,9 +85,9 @@
     </div>
 
     <script>
-        function Init() {
-            QueryBanner();
-            QueryDetail();
+        function Init(id) {
+            QueryBanner(id);
+            QueryDetail(id);
         }
 
         function QueryBanner() {
@@ -112,8 +112,15 @@
         }
 
         $(document).ready(function () {
-            
-            Init();
+
+            var url = location.href;
+            //取得問號之後的值
+            var temp = url.split("?");
+            //取得kind=之後的值(只有一個參數的時候) hxxp://Test.net/Test.aspx?kind=1  
+            var kinds = url.split("?kind=");
+            //初始化
+            if (kinds.length > 1)
+                Init(kinds[1]);
         });
 
         function InitFlexSlider() {
@@ -122,11 +129,11 @@
             });
         }
 
-        function QueryDetail()
+        function QueryDetail(id)
         {
             $.ajax({
                 type: "GET",
-                //dataType: "txt",
+                data: "&Kind=" + id,
                 url: "../Model/M_GetProductDetail.aspx",
                 success: function(result)
                 {

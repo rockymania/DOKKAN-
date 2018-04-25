@@ -39,7 +39,7 @@ public partial class Model_M_GetProductDetail : System.Web.UI.Page
 
         try
         {
-            aID = "0";
+            aID = Request["Kind"].ToString();
 
             aData = new DetailData();
 
