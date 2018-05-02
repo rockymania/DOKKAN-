@@ -37,16 +37,33 @@
     <script>
         //讀取cookie
         function Alert() {
-            var ds = readCookie('test');
+            var ds = readCookie('Ricky');
+            alert(ds);
+            var array = ds.split(',');
+
+            for (i = 0; i < array.length; i++)
+                alert(array[i]);
+
+            var PID = new Array();
+            var PNUM = new Array();
+
+            //二次解析
+            var SecondSpilte;
+            for (i = 0; i < array.length; i++) {
+                SecondSpilte = array[i].split('|');
+                PID.push(SecondSpilte[0]);
+                PNUM.push(SecondSpilte[1]);
+            }
+            alert(PID[0]);
         }
         //增加cookie
         function Insert() {
-            var ds = "這是測試";
-            createCookie('test', ds, 1);
+            //var ds = "12|34,56|78,90|01,";
+            //createCookie('Ricky', ds, 1);
         }
         //清除cookie
         function Clear() {
-            eraseCookie('test');
+            eraseCookie('Ricky');
         }
     </script>
 
