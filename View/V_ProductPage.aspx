@@ -56,6 +56,9 @@
         #ValueBox {
             padding:0px 0px 0px 350px;
         }
+        #BuyCar {
+            padding:50px 0px 0px 350px;
+        }
 
     </style>
 
@@ -80,6 +83,9 @@
                 <input id="Number" type="number" style="width:30px;text-align:center" value="1" />
                 <button type="button" onclick="AddCount()">+</button>
             </p>
+            <p id="BuyCar">
+                <button type="button" onclick="AddBuyCar()">加入購物車</button>
+            </p>
         </div>
         <div id="footer">我在底部</div>
     </div>
@@ -88,6 +94,7 @@
         function Init(id) {
             QueryBanner(id);
             QueryDetail(id);
+            createCookie("ProductID", id, 1);
         }
 
         function QueryBanner(id) {
@@ -166,8 +173,34 @@
                 vCount = 0;
             $("#Number").val(vCount);
         }
+
+        function AddBuyCar()
+        {
+            var aCookieData = "";
+
+            var aProductID = readCookie("ProductID");
+
+            var aProductCount = $("#Number").val();
+
+            var test = readCookie("Ricky");
+
+            //新的資料
+            if (checkHaveCookieData("Ricky") == false || readCookie("Ricky") == "null")
+            {
+                aCookieData = aProductID + "|" + aProductCount;
+            }
+            else
+            {
+                //取得目前的cookie資料
+                aCookieData = readCookie("Ricky") + "," + aProductID + "|" + aProductCount;
+            }
+
+            createCookie("Ricky", aCookieData, 1);
+        }
+
     </script>
 
     <script type="text/javascript" src="../Js/MenuButton.js"></script>
+    <script type="text/javascript" src="../Js/Common.js"></script>
 </body>
 </html>

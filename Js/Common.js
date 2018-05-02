@@ -23,3 +23,15 @@ function readCookie(name) {
 function eraseCookie(name) {
     createCookie(name, "", -1);
 }
+
+function checkHaveCookieData(iAccount)
+{
+    var aCookie = document.cookie.split(';');
+
+    for (var i = 0; i < aCookie.length;i++)
+    {
+        if (aCookie[i].indexOf(iAccount) != -1 )
+            return true;
+    }
+    return false;
+}
