@@ -35,3 +35,54 @@ function checkHaveCookieData(iAccount)
     }
     return false;
 }
+
+function checkHaveDetailData(iAccount,iProductID)
+{
+    var aContent = readCookie(iAccount);
+
+    var aContentAry = aContent.split(',');
+
+    for (var i = 0; i < aContentAry.length; i++)
+    {
+        var aTmpAry = aContentAry[i].split('|');
+        if (aTmpAry[0] == iProductID)
+            return true;
+    }
+
+    return false;
+}
+
+function getNewProductCountData(iAccount,iProductID,iAddCount)
+{
+    var aReStr = "";
+
+    var aContent = readCookie(iAccount);
+
+    var aContentAry = aContent.split(',');
+
+    for (var i = 0; i < aContentAry.length; i++)
+    {
+        var aTmpAry = aContentAry[i].split('|');
+
+        if (aTmpAry[0] == "")
+            break;
+
+        if (aTmpAry[0] == iProductID)
+        {
+            var aCount = parseInt(aTmpAry[1]) + parseInt(iAddCount);
+            if (i != 0)
+                aReStr += "," + aTmpAry[0] + "|" + aCount;
+            else
+                aReStr += aTmpAry[0] + "|" + aCount;
+        }
+        else
+        {
+            if(i != 0)
+                aReStr += "," + aTmpAry[0] + "|" + aTmpAry[1];
+            else
+                aReStr += aTmpAry[0] + "|" + aTmpAry[1];
+        }      
+    }
+
+    return aReStr;
+}

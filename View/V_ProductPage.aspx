@@ -191,8 +191,16 @@
             }
             else
             {
-                //取得目前的cookie資料
-                aCookieData = readCookie("Ricky") + "," + aProductID + "|" + aProductCount;
+                if (checkHaveDetailData("Ricky", aProductID) == true)
+                {
+                    aCookieData = getNewProductCountData("Ricky", aProductID, aProductCount)
+                }
+                else
+                {
+                    //取得目前的cookie資料
+                    aCookieData = readCookie("Ricky") + "," + aProductID + "|" + aProductCount;
+
+                }
             }
 
             createCookie("Ricky", aCookieData, 1);
