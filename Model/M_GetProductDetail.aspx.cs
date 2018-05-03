@@ -13,19 +13,19 @@ public partial class Model_M_GetProductDetail : System.Web.UI.Page
     public class DetailData
     {
         public string ID;
-        public string Title;
+        public string ProductName;
         public string Price;
         public string[] Detail;
 
         public DetailData()
         {
             ID = string.Empty;
-            Title = string.Empty;
+            ProductName = string.Empty;
             Price = string.Empty;
         }
     }
 
-    private string mLoadPath = "Data/ProductDetail.txt";
+    private string mLoadPath = "Data/ProductData.txt";
     
 
     protected void Page_Load(object sender, EventArgs e)
@@ -62,7 +62,7 @@ public partial class Model_M_GetProductDetail : System.Web.UI.Page
                 }
             }
 
-            aReStr = string.Format(aReStr, aData.Title);
+            aReStr = string.Format(aReStr, aData.ProductName);
 
             int aDetailCount = GetDetailCount(aData);
 
