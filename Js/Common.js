@@ -86,3 +86,32 @@ function getNewProductCountData(iAccount,iProductID,iAddCount)
 
     return aReStr;
 }
+
+function DelProductItem(iAccount, iProductID)
+{
+    var aCookieStr = "";
+
+    var aContent = readCookie(iAccount);
+
+    var aContentAry = aContent.split(',');
+
+    for (var i = 0; i < aContentAry.length; i++) {
+        var aTmpAry = aContentAry[i].split('|');
+
+        if (aTmpAry[0] == "")
+            break;
+
+        if (aTmpAry[0] != iProductID) {
+            if (i != 0)
+                aCookieStr += "," + aTmpAry[0] + "|" + aTmpAry[1];
+            else
+                aCookieStr += aTmpAry[0] + "|" + aTmpAry[1];
+        }
+    }
+
+    eraseCookie(iAccount);
+
+    createCookie(iAccount, aCookieStr, 1);
+
+    return aCookieStr;
+}
