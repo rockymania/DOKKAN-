@@ -20,4 +20,12 @@ td > p > a > img {
     float: left;
     padding: 0px 0px 0px 15px;
 }
+
+.TableP {
+    width: 250px;
+    height: 40px;
+    /*overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;*/
+}
 /*上 右 下 左*/

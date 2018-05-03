@@ -17,7 +17,7 @@
         <p><img src="../Image/PageTop.jpg" /></p>
         <div id="MenuButton"></div>
     </div>
-    <div id="nav">
+    <div id="nav" style="float:left">
         <!-- 動態塞資料 -->
     </div>
     <div id="content"></div>
@@ -38,11 +38,12 @@
             //初始化
             if (kinds.length > 1)
                 Init(kinds[1]);
-           
-            //if (kinds[1] == 1) {
-            //    document.title = "AA";
-            //} else
-            //    document.title = "BB";
+
+            if (kinds[1] == 1) {
+                document.title = "飲料商品";
+            } else {
+                document.title = "餐點商品";
+            }
         }
 
         $(document).ready(function () {
@@ -70,7 +71,10 @@
         }
 
         function CreateProduct(result) {
-            $("#nav").append(result);
+            if (result == "0" || result=="") {
+                $("#nav").append('目前並無商品');
+            }else
+                $("#nav").append(result);
         }
 
     </script>

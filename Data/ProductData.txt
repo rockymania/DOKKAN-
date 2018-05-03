@@ -1,0 +1,43 @@
+[{
+  "ID": "1",
+  "ShopKind": "1",
+  "ProductName": "GIGABYTE Sabre 15G電競筆電",
+  "ProductUrl": "V_ProductPage.aspx?kind=",
+  "ProductKind": "0",
+  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg"
+},{
+  "ID": "2",
+  "ShopKind": "1",
+  "ProductName": "Apple iPhone 7 Plus (128G)",
+  "ProductUrl": "V_ProductPage.aspx?kind=",
+  "ProductKind": "1",
+  "ProductImage": "..\\\\Image\\\\Product\\\\Lemon.jpg"
+},{
+  "ID": "3",
+  "ShopKind": "1",
+  "ProductName": "戰神 God of War",
+  "ProductUrl": "V_ProductPage.aspx?kind=",
+  "ProductKind": "2",
+  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg"
+},{
+  "ID": "4",
+  "ShopKind": "1",
+  "ProductName": "通過美軍九項軍規/快速充電/H&K音效",
+  "ProductUrl": "V_ProductPage.aspx?kind=",
+  "ProductKind": "3",
+  "ProductImage": "..\\\\Image\\\\Product\\\\MilkTea.jpg"
+},{
+  "ID": "5",
+  "ShopKind": "1",
+  "ProductName": "世界最輕14吋商務筆記型電腦",
+  "ProductUrl": "V_ProductPage.aspx?kind=",
+  "ProductKind": "4",
+  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg"
+},{
+  "ID": "6",
+  "ShopKind": "1",
+  "ProductName": "ASUS B9440UA 14吋窄邊輕薄商用筆電",
+  "ProductUrl": "V_ProductPage.aspx?kind=",
+  "ProductKind": "5",
+  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg"
+},]

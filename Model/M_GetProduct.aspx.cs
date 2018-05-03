@@ -12,15 +12,16 @@ public partial class Model_M_GetProduct : System.Web.UI.Page
 {
     public class ProductData
     {
-        public string ProductName;
-        public string ProductUrl;
-        public string ProductImage;
-        public int ProductID;
+        public string ID;               //ID
+        public string ShopKind;         //商品種類 EX: 飲料 餐飲
+        public string ProductName;      //商品名稱
+        public string ProductImage;     //商品圖片
+        public string ProductUrl;       //商品連結
+        public string ProductKind;      //商品類別(開啟url用)
     }
 
-    private string LoadDataPath = "Data/ProductData";
-    private string LoadDataEnd = ".txt";
-    private string CreateString = "<table class=\"TableItem\"><tr><td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> <a href=\"{2}\"> <p>{3}</p></p></td></tr></table>";
+    private string LoadDataPath = "Data/ProductData.txt";
+    private string CreateString = "<table class=\"TableItem\"><tr><td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> </p><p class=\"TableP\"><a href=\"{2}\"> {3}</p></td></tr></table>";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -31,23 +32,30 @@ public partial class Model_M_GetProduct : System.Web.UI.Page
         {
             aKind = Request.QueryString["Kind"];
 
-
             ProductData[] mData;
             string json_Data = "";
             string CheckPath = "~";
             if (GetIsDebug() == false)
                 CheckPath = "~/Dokkan/";
 
-            using (StreamReader sr = new StreamReader(Server.MapPath(CheckPath) + LoadDataPath + aKind + LoadDataEnd, Encoding.UTF8))
+            using (StreamReader sr = new StreamReader(Server.MapPath(CheckPath) + LoadDataPath, Encoding.UTF8))
             {
                 string str = sr.ReadToEnd();
                 mData = JsonConvert.DeserializeObject<ProductData[]>(str);
             }
 
+            if (mData.Length == 0)
+            { 
+                Response.Write("0");
+                return;
+            }
+            //"<table class=\"TableItem\"><tr><td><p><a href=\"{0}\"><img src=\"{1}\"/> </a> </p><p class=\"TableP\"><a href=\"{2}\"> {3}</p></td></tr></table>";
+            //{0}商品連結 {1} 商品圖片 {2} 商品連結 {3}商品名稱
 
             for (int i = 0; i < mData.Length; i++)
             {
-                json_Data += string.Format(CreateString, mData[i].ProductUrl, mData[i].ProductImage, mData[i].ProductUrl, mData[i].ProductName);
+                if (CheckStatus(aKind,mData[i].ShopKind)==true)
+                    json_Data += string.Format(CreateString, mData[i].ProductUrl+mData[i].ProductKind, mData[i].ProductImage, mData[i].ProductUrl + mData[i].ProductKind, mData[i].ProductName);
             }
 
             Response.Write(json_Data);
@@ -56,26 +64,14 @@ public partial class Model_M_GetProduct : System.Web.UI.Page
         {
 
         }
+    }
 
+    private bool CheckStatus(string iKind,string DataKind)
+    {
+        if (iKind == DataKind)
+            return true;
 
-        
-
-
-
-        //string[] stringArray = new string[(mData.Length / 3) + 1];
-        //for (int i = 0, j = 0; i < mData.Length; i++)
-        //{
-        //    stringArray[j] += string.Format(CreateString, mData[i].ProductUrl, mData[i].ProductImage, mData[i].ProductUrl, mData[i].ProductName);
-
-        //    if (i % 3 == 2)
-        //        j++;
-        //}
-        //string FinalString = "";
-        //for (int i = 0; i < stringArray.Length; i++)
-        //{
-        //    FinalString += string.Format("<tr>{0}</tr>", stringArray[i]);
-        //}
-        //Response.Write(FinalString);
+        return false;
     }
 
     private bool GetIsDebug()
