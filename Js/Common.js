@@ -70,14 +70,14 @@ function getNewProductCountData(iAccount,iProductID,iAddCount)
         if (aTmpAry[0] == iProductID)
         {
             var aCount = parseInt(aTmpAry[1]) + parseInt(iAddCount);
-            if (i != 0)
+            if (aReStr != "")
                 aReStr += "," + aTmpAry[0] + "|" + aCount;
             else
                 aReStr += aTmpAry[0] + "|" + aCount;
         }
         else
         {
-            if(i != 0)
+            if (aReStr != "")
                 aReStr += "," + aTmpAry[0] + "|" + aTmpAry[1];
             else
                 aReStr += aTmpAry[0] + "|" + aTmpAry[1];
@@ -111,7 +111,8 @@ function DelProductItem(iAccount, iProductID)
 
     eraseCookie(iAccount);
 
-    createCookie(iAccount, aCookieStr, 1);
+    if (aCookieStr != "")
+        createCookie(iAccount, aCookieStr, 1);
 
     return aCookieStr;
 }
