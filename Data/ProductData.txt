@@ -1,43 +1,85 @@
 [{
   "ID": "1",
   "ShopKind": "1",
-  "ProductName": "GIGABYTE Sabre 15G電競筆電",
+  "ProductName": "每朝健康 雙纖綠茶(650mlx24入)",
   "ProductUrl": "V_ProductPage.aspx?kind=",
-  "ProductKind": "0",
-  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg"
+  "ProductKind": "1",
+  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg",
+  "Price": "400",
+  "Detail": [
+    "全新概念超強機能 外食族指定用茶",
+    "全國第一支雙纖綠茶 促進體內環保",
+    "獨家雙纖配比 環狀 鍊狀雙管齊下  雙效淨空 廢物不堆積",
+    "口感清新甘甜 飲用時機廣",
+    "全國第一支雙纖綠茶 促進體內環保"
+  ]
 },{
   "ID": "2",
   "ShopKind": "1",
-  "ProductName": "Apple iPhone 7 Plus (128G)",
+  "ProductName": "生活檸檬紅茶(300ccX6入)",
   "ProductUrl": "V_ProductPage.aspx?kind=",
-  "ProductKind": "1",
-  "ProductImage": "..\\\\Image\\\\Product\\\\Lemon.jpg"
+  "ProductKind": "2",
+  "ProductImage": "..\\\\Image\\\\Product\\\\HoneyGreenTea.jpg",
+  "Price": "500",
+  "Detail": [
+    "清涼暢飲的滋味西式時尚經典茶品\"",
+    "\"嚴選天然紅茶茶葉 遵循古法沖泡使茶感甘潤",
+    "檸檬微酸甜芳香清涼順暢生津止渴",
+    "本商品獲台灣食品GMP 認證通過"
+  ]
 },{
   "ID": "3",
   "ShopKind": "1",
-  "ProductName": "戰神 God of War",
+  "ProductName": "古道 香芋奶茶(300mlx24瓶)",
   "ProductUrl": "V_ProductPage.aspx?kind=",
-  "ProductKind": "2",
-  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg"
+  "ProductKind": "3",
+  "ProductImage": "..\\\\Image\\\\Product\\\\Lemon.jpg",
+  "Price": "600",
+  "Detail": [
+    "隨手一瓶，輕鬆自然",
+    "自然健康營養",
+    "另有古道貴爵巧克力奶茶、古道布丁奶茶",
+    "本商品獲台灣食品GMP 認證通過"
+  ]
 },{
   "ID": "4",
   "ShopKind": "1",
-  "ProductName": "通過美軍九項軍規/快速充電/H&K音效",
+  "ProductName": "Nissei 皇家奶茶(250g)",
   "ProductUrl": "V_ProductPage.aspx?kind=",
-  "ProductKind": "3",
-  "ProductImage": "..\\\\Image\\\\Product\\\\MilkTea.jpg"
+  "ProductKind": "4",
+  "ProductImage": "..\\\\Image\\\\Product\\\\MilkTea.jpg",
+  "Price": "700",
+  "Detail": [
+    "日本原裝進口",
+    "香甜甘口紅茶",
+    "搭配濃郁牛奶",
+    "融合成滑順可口美味奶茶",
+    "悠閒茶飲的最佳選擇"
+  ]
 },{
   "ID": "5",
   "ShopKind": "1",
-  "ProductName": "世界最輕14吋商務筆記型電腦",
+  "ProductName": "每朝健康 雙纖綠茶(650mlx24入)",
   "ProductUrl": "V_ProductPage.aspx?kind=",
-  "ProductKind": "4",
-  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg"
+  "ProductKind": "1",
+  "ProductImage": "..\\\\Image\\\\Product\\\\Lemon.jpg",
+  "Price": "800",
+  "Detail": [
+    "這個是測試，聽說可以用逗號分開。",
+    "是真的嗎?"
+  ]
 },{
   "ID": "6",
   "ShopKind": "1",
-  "ProductName": "ASUS B9440UA 14吋窄邊輕薄商用筆電",
+  "ProductName": "生活檸檬紅茶(300ccX6入)",
   "ProductUrl": "V_ProductPage.aspx?kind=",
-  "ProductKind": "5",
-  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg"
+  "ProductKind": "2",
+  "ProductImage": "..\\\\Image\\\\Product\\\\GreenTea.jpg",
+  "Price": "900",
+  "Detail": [
+    "阿不就好棒棒",
+    "一直耍我。",
+    "我的實況野球2018呢'???????",
+    "快買給我。"
+  ]
 },]
