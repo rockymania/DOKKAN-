@@ -35,22 +35,25 @@
             height:100px;
             width:960px;
         }
+        table{
+            width:800px;
+        }
     </style>
 </head>
 <body>
 <div id="wrapper">
     <div id="header">
-        <%--<div id="MenuButton"></div>--%>
+        <div id="MenuButton"></div>
         <p><img id="imgscroll" src="../Image/PageTop.jpg" /></p>
     </div>
     <div id="nav">
-        <table>
-           <tr style="visibility: hidden;">
-      	    <td style="width:280px"></td>
-      	    <td style="width:150px"></td>
-      	    <td style="width:100px"></td>
-      	    <td style="width:140px"></td>
-      	    <td style="width:140px"></td>
+        <table border="1" id="navTable">
+           <tr>
+      	    <td style="width:280px">商品名稱</td>
+      	    <td style="width:150px">規格</td>
+      	    <td style="width:100px">數量</td>
+      	    <td style="width:140px">單價</td>
+      	    <td style="width:140px">小計</td>
             <td style="width:140px"></td>
            </tr>
              <%--<tr class="tabletr">
@@ -95,8 +98,15 @@
         }
 
         function CreateShopCar(result) {
-            $("#nav").append(result);
+            $("#navTable").append(result);
             //$("TableP").
+        }
+
+        function ClearProduct(iID) {
+            DelProductItem('Ricky', iID);
+
+            location.reload();
+            //alert("要移除第"+iID+"個ID");
         }
     </script>
 

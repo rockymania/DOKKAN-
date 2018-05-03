@@ -41,8 +41,8 @@
             alert(ds);
             var array = ds.split(',');
 
-            for (i = 0; i < array.length; i++)
-                alert(array[i]);
+            //for (i = 0; i < array.length; i++)
+            //    alert(array[i]);
 
             var PID = new Array();
             var PNUM = new Array();
@@ -54,7 +54,7 @@
                 PID.push(SecondSpilte[0]);
                 PNUM.push(SecondSpilte[1]);
             }
-            alert(PID[0]);
+            //alert(PID[0]);
         }
         //增加cookie
         function Insert() {

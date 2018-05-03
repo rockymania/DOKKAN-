@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="http://flexslider.woothemes.com/js/jquery.flexslider.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/flexslider.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="../css/flexslider.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../css/layout.css" />
     <title></title>
 
     <style>

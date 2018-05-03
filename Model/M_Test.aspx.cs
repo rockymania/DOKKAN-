@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 public partial class Model_M_Test : System.Web.UI.Page
 {
     private string mExString;
-    private int mExNumber;
+    private int mExNumber = 0;
 
     public string ExString { get { return mExString; } set { SetUseString(value); } }
     public int ExNumber { get { return mExNumber; } set { SetExNumber(value); } }
