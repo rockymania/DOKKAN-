@@ -102,7 +102,7 @@ function DelProductItem(iAccount, iProductID)
             break;
 
         if (aTmpAry[0] != iProductID) {
-            if (i != 0)
+            if (aCookieStr != "")
                 aCookieStr += "," + aTmpAry[0] + "|" + aTmpAry[1];
             else
                 aCookieStr += aTmpAry[0] + "|" + aTmpAry[1];
