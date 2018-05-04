@@ -99,6 +99,14 @@
                     <input type="text" size="25" name="email" maxlength="50" aria-required="true" />
                 </td>
             </tr>
+            <tr>
+                <td class="vt">
+                    <b class="orange">*</b>手機號碼
+                </td>
+                <td>
+                    <input type="text" size="25" name="email" maxlength="50" aria-required="true" />
+                </td>
+            </tr>
         </table>
     </div>
     <div class="Sectitle">留言內容</div>
@@ -113,7 +121,7 @@
         </table>     
     </div>
     <div id="footer">
-        <button style="margin-left:700px;">送出</button>
+        <button style="margin-left:700px;">送出</button><%--CustomerMessage--%>
     </div>
 </div>
 
