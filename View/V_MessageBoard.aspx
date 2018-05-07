@@ -6,7 +6,9 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://flexslider.woothemes.com/js/jquery.flexslider.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/localization/messages_zh_TW.js" charset="UTF-8" ></script>
     <link rel="stylesheet" type="text/css" href="../css/layout.css" />
     <title>留言板</title>
     <style>
@@ -66,9 +68,19 @@
             color:coral;
             font-family:DFKai-SB;
         }
+        .error{
+            color:red;
+            font-weight:300;
+        }
+        .CenterBtn{
+            display:block;
+            margin:auto;
+            width:200px;
+        }
     </style>
 </head>
 <body>
+    <form id="commentForm" method="post">
     <div id="wrapper">
     <div id="header">
         <div id="MenuButton"></div>
@@ -81,14 +93,15 @@
             </div>
         </div>
     </div>
-    <div id="Data" class="tableInfoAll">
-        <table class="tableInfo">
+    <div id="Data">
+        
+        <table class="tableInfo" id="TableInfo">
             <tr>
                 <td class="vt">
                     <b class="orange">*</b>姓名
                 </td>
                 <td>
-                    <input type="text" size="25" name="name" maxlength="24" aria-required="true"/>
+                    <input type="text" size="25" id="name" name="name" aria-required="true" class="required"/>
                 </td>
             </tr>
             <tr>
@@ -96,7 +109,7 @@
                     <b class="orange">*</b>電子信箱
                 </td>
                 <td>
-                    <input type="text" size="25" name="email" maxlength="50" aria-required="true" />
+                    <input type="text" size="25" id="Email" name="Email" maxlength="50" aria-required="true" class="required email" />
                 </td>
             </tr>
             <tr>
@@ -104,10 +117,11 @@
                     <b class="orange">*</b>手機號碼
                 </td>
                 <td>
-                    <input type="text" size="25" name="email" maxlength="50" aria-required="true" />
+                    <input type="text" size="25" id="Phone" name="Phone" aria-required="true" class="required"/>
                 </td>
             </tr>
         </table>
+           
     </div>
     <div class="Sectitle">留言內容</div>
     <div id="content">
@@ -115,16 +129,73 @@
             <tr>
                 <td><b class="orange">*</b>內容</td>
                 <td>
-                    <textarea rows="10" cols="100" required="required" name="ContentText"  style="resize:none">請輸入你要輸入的內容</textarea>
+                    <textarea rows="10" cols="100" id="Message"  name="Message" style="resize:none" class="required"></textarea>
                 </td>
             </tr>
-        </table>     
+
+        </table>   
+        <div class="CenterBtn">
+            <input class="submit" type="submit" value="送出"/>
+        </div>
+        
     </div>
     <div id="footer">
-        <button style="margin-left:700px;">送出</button><%--CustomerMessage--%>
+        <%--CustomerMessage--%>
     </div>
 </div>
+         </form>
+    <script>
+        $(document).ready(function () {
 
+            $("#commentForm").validate({
+                rules: {
+                    name: { maxlength: 10  },
+                    Phone: { number: true, minlength: 10, maxlength: 10 },
+                    Message: { minlength: 0, maxlength: 500 },
+                },
+                messages: {
+                    name: {
+                        maxlength: "姓名不能大於10個字."
+                    },
+                    Phone: { number: "只能輸入數字", minlength: "請輸入正確手機格式", maxlength: "請輸入正確手機格式" },
+                    Message: {
+                        maxlength: "不能超過500字"
+                    },
+                },
+            });
+
+            $("#SendData").click(function () {
+                var aName = $("#name").val();
+            });  
+
+           
+        })
+
+        $.validator.setDefaults({
+            submitHandler: function () {
+                var aName = $("#name").val();
+                var aEmail = $("#Email").val();
+                var aPhone = $("#Phone").val();
+                var aMessage = $("#Message").val();
+                $.ajax(
+                    {
+                        dataType: "text",
+                        type: "GET",
+                        data: "&Name=" + aName + "&Email=" + aEmail + "&Phone=" + aPhone + "&Message=" + aMessage,
+                        url: "../Model/M_MessageBoard.aspx",
+                        success: function (result) {
+                            if (result == "0")
+                                alert("成功");
+                            else
+                                alert("錯誤")
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    });
+            }
+        });
+    </script>
     <script type="text/javascript" src="../Js/MenuButton.js"></script>
 </body>
 </html>
