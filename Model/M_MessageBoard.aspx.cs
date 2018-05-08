@@ -14,13 +14,15 @@ public partial class Model_M_MessageBoard : System.Web.UI.Page
         public string Email;
         public string Phone;
         public string Message;
+        public string NowTime;
 
-        public MessageData(string iName,string iEamil,string iPhone,string iMessage)
+        public MessageData(string iName,string iEamil,string iPhone,string iMessage, string iNowTime)
         {
             Name = iName;
             Email = iEamil;
             Phone = iPhone;
             Message = iMessage;
+            iNowTime = NowTime;
         }
     }
 
@@ -31,13 +33,14 @@ public partial class Model_M_MessageBoard : System.Web.UI.Page
         string aEmail = Request.QueryString["Email"];
         string aPhone = Request.QueryString["Phone"];
         string aMessage = Request.QueryString["Message"];
+        string aTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-        MessageData aData = new MessageData(aName, aEmail, aPhone, aMessage);
+        MessageData aData = new MessageData(aName, aEmail, aPhone, aMessage, aTime);
 
         try
         {
-            string vStr = "INSERT INTO CustomerMessage(Name,Email,Phone,Message) VALUES(N'" + aData.Name +
-                            "','" + aData.Email + "','" + aData.Phone + "',N'" + aData.Message + " ')";
+            string vStr = "INSERT INTO MessageBoard(Name,Email,Phone,Message,DateTime) VALUES(N'" + aData.Name +
+                            "','" + aData.Email + "','" + aData.Phone + "',N'" + aData.Message + "','" + aTime + " ')";
 
             using (SqlConnection vCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
             {

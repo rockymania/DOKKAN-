@@ -77,6 +77,20 @@
             margin:auto;
             width:200px;
         }
+         .Thirdtitle{
+            font-size: 22px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            /*color:dimgrey;*/
+            font-family:DFKai-SB;
+            background-color:red;
+        }
+         .Messagetable td{
+             width:200px;
+         }
+         .Messagetable {
+             height:50px;
+         }
     </style>
 </head>
 <body>
@@ -132,19 +146,25 @@
                     <textarea rows="10" cols="100" id="Message"  name="Message" style="resize:none" class="required"></textarea>
                 </td>
             </tr>
-
         </table>   
         <div class="CenterBtn">
             <input class="submit" type="submit" value="送出"/>
         </div>
-        
     </div>
+    <div class="Thirdtitle">歷史留言</div>
+    <div id="MessageData">
+<%--        <table id="ShowMessage"style="width:800px;">
+        </table>--%>
+    </div>
+
     <div id="footer">
         <%--CustomerMessage--%>
     </div>
 </div>
          </form>
     <script>
+        var page = 1;
+
         $(document).ready(function () {
 
             $("#commentForm").validate({
@@ -163,12 +183,20 @@
                     },
                 },
             });
-
-            $("#SendData").click(function () {
-                var aName = $("#name").val();
-            });  
-
-           
+            //取得留言
+            $.ajax(
+                {
+                    dataType: "text",
+                    type: "GET",
+                    data: "&Page=" + page,
+                    url: "../Model/M_GetMessageBoard.aspx",
+                    success: function (result) {
+                        $("#MessageData").append(result);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
         })
 
         $.validator.setDefaults({
