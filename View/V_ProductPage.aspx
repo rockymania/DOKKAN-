@@ -204,6 +204,7 @@
             }
 
             createCookie("Ricky", aCookieData, 1);
+            window.alert("已加入購物車");
         }
 
     </script>
