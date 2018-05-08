@@ -74,15 +74,15 @@ public partial class Model_M_BuyProduct : System.Web.UI.Page
                     for (int i = 0; i < mProductID.Length; i++)
                     {
 
-                        //string aBuyAddress = GetAddress(aShopCarData.BuyAddressCity, aShopCarData.BuyAddressArea, aShopCarData.BuyAddress);
-                        //string aGetAddress = GetAddress(aShopCarData.GetAddressCity, aShopCarData.GetAddressArea, aShopCarData.GetAddress);
+                        string aBuyAddress = GetAddress(aShopCarData.BuyAddressCity, aShopCarData.BuyAddressArea, aShopCarData.BuyAddress);
+                        string aGetAddress = GetAddress(aShopCarData.GetAddressCity, aShopCarData.GetAddressArea, aShopCarData.GetAddress);
 
-                        //string aSQLStr = string.Format(aStr, mProductID[i], mProductCount[i], aShopCarData.CardNumber, aShopCarData.Password,aBuyAddress, aShopCarData.BuyName, aShopCarData.BuyPhone, aShopCarData.GetName, aShopCarData.GetPhone,aGetAddress);
+                        string aSQLStr = string.Format(aStr, mProductID[i], mProductCount[i], aShopCarData.CardNumber, aShopCarData.Password, aBuyAddress, aShopCarData.BuyName, aShopCarData.BuyPhone, aShopCarData.GetName, aShopCarData.GetPhone, aGetAddress);
 
-                        //using (SqlCommand vCmd = new SqlCommand(aSQLStr, vCon))
-                        //{
-                        //    vCmd.ExecuteNonQuery();
-                        //}
+                        using (SqlCommand vCmd = new SqlCommand(aSQLStr, vCon))
+                        {
+                            vCmd.ExecuteNonQuery();
+                        }
                     }
                 }
 
