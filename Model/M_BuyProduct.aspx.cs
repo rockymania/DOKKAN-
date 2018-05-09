@@ -65,11 +65,14 @@ public partial class Model_M_BuyProduct : System.Web.UI.Page
             //開始寫入SQL
             try
             {
-                string aStr = "INSERT INTO BuyData(ProductID,ProductCount,CardNumber,Password,BuyAddress,BuyName,BuyPhone,GetName,GetPhone,GetAddress) VALUES('{0}','{1}','{2}','{3}',N'{4}',N'{5}','{6}',N'{7}','{8}',N'{9}')";
+                string aStr = "INSERT INTO BuyData(ProductID,ProductCount,CardNumber,Password,BuyAddress,BuyName,BuyPhone,GetName,GetPhone,GetAddress,UserAccount,SingleNumber,RecTime) VALUES('{0}','{1}','{2}','{3}',N'{4}',N'{5}','{6}',N'{7}','{8}',N'{9}','{10}','{11}','{12}')";
 
                 using (SqlConnection vCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
                 {
                     vCon.Open();
+
+                    string aSingleNumber = GetSingleNumber();
+                    string aRecTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
                     for (int i = 0; i < mProductID.Length; i++)
                     {
@@ -77,7 +80,7 @@ public partial class Model_M_BuyProduct : System.Web.UI.Page
                         string aBuyAddress = GetAddress(aShopCarData.BuyAddressCity, aShopCarData.BuyAddressArea, aShopCarData.BuyAddress);
                         string aGetAddress = GetAddress(aShopCarData.GetAddressCity, aShopCarData.GetAddressArea, aShopCarData.GetAddress);
 
-                        string aSQLStr = string.Format(aStr, mProductID[i], mProductCount[i], aShopCarData.CardNumber, aShopCarData.Password, aBuyAddress, aShopCarData.BuyName, aShopCarData.BuyPhone, aShopCarData.GetName, aShopCarData.GetPhone, aGetAddress);
+                        string aSQLStr = string.Format(aStr, mProductID[i], mProductCount[i], aShopCarData.CardNumber, aShopCarData.Password, aBuyAddress, aShopCarData.BuyName, aShopCarData.BuyPhone, aShopCarData.GetName, aShopCarData.GetPhone, aGetAddress,"Ricky", aSingleNumber,aRecTime);
 
                         using (SqlCommand vCmd = new SqlCommand(aSQLStr, vCon))
                         {
@@ -141,5 +144,79 @@ public partial class Model_M_BuyProduct : System.Web.UI.Page
             return false;
         }
         return true;
+    }
+
+    private string GetSingleNumber()
+    {
+        string aSingleNumber = string.Empty;
+
+        try
+        {
+            using (SqlConnection aSc = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
+            {
+                aSc.Open();
+                string aConStr = "Select * From SingleNumberMgr";
+                string aCompareStr = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
+                string aSQLSingleNumber = string.Empty;
+                bool aFind = false;//今天是否已經有單號了
+                using (SqlCommand aCom = new SqlCommand(aConStr, aSc))
+                {
+                    SqlDataReader aRead = aCom.ExecuteReader();
+                    //判斷資料庫是否有資料
+                    int aCount = 0;
+                    while (aRead.Read())
+                    {
+                        aSQLSingleNumber = aRead["SingleNumber"].ToString();
+                        int vIndexof = aSQLSingleNumber.IndexOf(aCompareStr);
+                        //今天已經有創立單號了
+                        if (vIndexof >= 0)
+                        {
+                            aFind = true;
+                            break;
+                        }
+
+                        aCount++;
+                    }
+                    aRead.Close();
+                    aCom.Dispose();
+                }
+
+                string aSQLStr = string.Empty;
+                //如果有找到 就直接修改單號
+                if (aFind == true)
+                {
+                    string aNumber = aSQLSingleNumber.Replace(aCompareStr, "");
+                    int aInt = int.Parse(aNumber) + 1;
+
+                    aSingleNumber = aCompareStr + aInt.ToString("000000");
+
+                    string aStr = string.Format("UPDATE SingleNumberMgr SET SingleNumber = {0} WHERE SingleNumber = '{1}'", aSingleNumber, aSQLSingleNumber);
+
+                    using (SqlCommand aCmd = new SqlCommand(aStr, aSc))
+                    {
+                        aCmd.ExecuteNonQuery();
+                    }
+                }
+                else
+                {      
+                    aCompareStr += 1.ToString("000000");
+                    string aStr = string.Format("INSERT INTO SingleNumberMgr(SingleNumber) VALUES('{0}')", aCompareStr);
+
+                    using (SqlCommand aCmd = new SqlCommand(aStr, aSc))
+                    {
+                        aSingleNumber = aCompareStr;
+                        aCmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            return aSingleNumber;
+        }
+        catch(Exception ex)
+        {
+            Response.Write(ex);
+        }
+
+
+        return aSingleNumber;
     }
 }
