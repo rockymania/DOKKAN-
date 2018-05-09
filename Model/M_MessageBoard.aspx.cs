@@ -33,7 +33,7 @@ public partial class Model_M_MessageBoard : System.Web.UI.Page
         string aEmail = Request.QueryString["Email"];
         string aPhone = Request.QueryString["Phone"];
         string aMessage = Request.QueryString["Message"];
-        string aTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        string aTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
         MessageData aData = new MessageData(aName, aEmail, aPhone, aMessage, aTime);
 

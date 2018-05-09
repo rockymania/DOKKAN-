@@ -91,6 +91,15 @@
          .Messagetable {
              height:50px;
          }
+         .Toptable
+         {
+             width:800px;
+             border:1px solid red;
+             margin:0 auto;
+         }
+        .button {
+            display:inline-block;
+        }
     </style>
 </head>
 <body>
@@ -152,9 +161,10 @@
         </div>
     </div>
     <div class="Thirdtitle">歷史留言</div>
-    <div id="MessageData">
-<%--        <table id="ShowMessage"style="width:800px;">
-        </table>--%>
+    <div id="MessageData"></div>
+    <div style="width:200px; margin:0 auto; margin-top:20px;">
+        <input class="button" type="button" value="上一頁"onclick="PageUp()"/>
+        <input class="button" type="button" value="下一頁" onclick="PageDown()"/>
     </div>
 
     <div id="footer">
@@ -164,7 +174,7 @@
          </form>
     <script>
         var page = 1;
-
+        var aTotalPage = 0;
         $(document).ready(function () {
 
             $("#commentForm").validate({
@@ -183,20 +193,7 @@
                     },
                 },
             });
-            //取得留言
-            $.ajax(
-                {
-                    dataType: "text",
-                    type: "GET",
-                    data: "&Page=" + page,
-                    url: "../Model/M_GetMessageBoard.aspx",
-                    success: function (result) {
-                        $("#MessageData").append(result);
-                    },
-                    error: function () {
-                        alert("error");
-                    }
-                });
+            GetTotalMessage(page);
         })
 
         $.validator.setDefaults({
@@ -223,6 +220,55 @@
                     });
             }
         });
+
+        function PageUp() {
+            if (page > 1) {
+                page -= 1;
+                GetMessage(page);
+            }
+        }
+
+        function PageDown() {
+            if (page + 1 > aTotalPage) { }
+            else {
+                page += 1;
+                GetMessage(page);
+            }
+        }
+
+        function GetTotalMessage(iPage) {
+            $.ajax(
+                {
+                    dataType: "text",
+                    type: "GET",
+                    data: "&Kind=1" + "&Page=" + iPage,
+                    url: "../Model/M_GetMessageBoard.aspx",
+                    success: function (result) {
+                        aTotalPage = Math.ceil(result/5);
+                        GetMessage(page);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+        }
+
+        function GetMessage(iPage) {
+            $.ajax(
+                {
+                    dataType: "text",
+                    type: "GET",
+                    data: "&Kind=2" + "&Page=" + iPage,
+                    url: "../Model/M_GetMessageBoard.aspx",
+                    success: function (result) {
+                        $("#MessageData").empty();
+                        $("#MessageData").append(result);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+        }
     </script>
     <script type="text/javascript" src="../Js/MenuButton.js"></script>
 </body>
