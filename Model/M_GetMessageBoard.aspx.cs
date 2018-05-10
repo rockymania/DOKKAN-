@@ -35,7 +35,7 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
         try
         {
             aKind = Request.QueryString["Kind"].ToString();
-            string AAA;
+
             if (aKind == "1")
             {
                 int aTotalCount = 0;

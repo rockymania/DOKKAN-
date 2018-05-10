@@ -13,7 +13,13 @@
     "</ul>" +
     "</li>" +
     "<!--這是一個段落-->" +
-    "<li><a href='V_ShopCar.aspx'>線上訂購</a>" +
+    "<li><a href='#'>線上訂購</a>" +
+    "<ul>" +
+    "<li><a href='V_ShopCar.aspx'>購物車</a>" +
+    "</li>" +
+    "<li><a href='V_Order.aspx'>訂單查詢</a>" +
+    "</li>" +
+    "</ul>" +
     "</li>" +
     "<!--這是一個段落-->" +
     "<li><a href='#'>客戶服務</a>" +
