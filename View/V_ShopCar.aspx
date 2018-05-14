@@ -207,7 +207,8 @@
         });
         //要先解析開啟的網頁傳輸進來的資料
         function init() {
-            var CookieShopCar = readCookie('Ricky');
+            var Account = readCookie('Account');
+            var CookieShopCar = readCookie(Account);
             $.ajax(
                 {
                     type: "GET",
@@ -225,11 +226,11 @@
 
         function CreateShopCar(result) {
             $("#navTable").append(result);
-            //$("TableP").
         }
 
         function ClearProduct(iID) {
-            DelProductItem('Ricky', iID);
+            var Account = readCookie('Account');
+            DelProductItem(Account, iID);
 
             location.reload();
         }
@@ -304,7 +305,8 @@
                 success: function (result)
                 {
                     alert(result);
-                    eraseCookie("Ricky");
+                    var Account = readCookie('Account');
+                    eraseCookie(Account);
                     location.reload() 
 
                 },

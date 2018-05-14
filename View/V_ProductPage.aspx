@@ -182,28 +182,30 @@
 
             var aProductCount = $("#Number").val();
 
-            var test = readCookie("Ricky");
+            var Account = readCookie('Account');
+
+            var test = readCookie(Account);
 
             //新的資料
-            if (checkHaveCookieData("Ricky") == false || readCookie("Ricky") == "null")
+            if (checkHaveCookieData(Account) == false || readCookie(Account) == "null")
             {
                 aCookieData = aProductID + "|" + aProductCount;
             }
             else
             {
-                if (checkHaveDetailData("Ricky", aProductID) == true)
+                if (checkHaveDetailData(Account, aProductID) == true)
                 {
-                    aCookieData = getNewProductCountData("Ricky", aProductID, aProductCount)
+                    aCookieData = getNewProductCountData(Account, aProductID, aProductCount)
                 }
                 else
                 {
                     //取得目前的cookie資料
-                    aCookieData = readCookie("Ricky") + "," + aProductID + "|" + aProductCount;
+                    aCookieData = readCookie(Account) + "," + aProductID + "|" + aProductCount;
 
                 }
             }
 
-            createCookie("Ricky", aCookieData, 1);
+            createCookie(Account, aCookieData, 1);
             window.alert("已加入購物車");
         }
 
