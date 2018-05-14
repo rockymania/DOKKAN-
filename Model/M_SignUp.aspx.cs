@@ -44,7 +44,7 @@ public partial class Model_M_SignUp : System.Web.UI.Page
 
             using (WebClient aWc = new WebClient())
             {
-                aResult = aWc.DownloadString(string.Format("http://mobiledaddy.net/Dokkan/Model/M_AutoMail.aspx?Accoun={0}&Mail={1}", aAccount, aMail));
+                aResult = aWc.DownloadString(string.Format("http://mobiledaddy.net/Dokkan/Model/M_AutoMail.aspx?Account={0}&Mail={1}", aAccount, aMail));
             }
 
             if (aResult == "1")
