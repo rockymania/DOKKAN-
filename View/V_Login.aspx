@@ -89,9 +89,21 @@
                     data: "&Account=" + aAccount + "&Password=" + aPassword,
                     success: function (result)
                     {
-                        createCookie('Account', $("#Account").val(), 1);
-                        alert(result);
-                        location.href = "V_index.aspx";
+                        switch (result)
+                        {
+                            case "1":
+                                alert("登入成功");
+                                createCookie('Account', $("#Account").val(), 1);
+                                location.href = "V_index.aspx";
+                                break;
+                            case "2":
+                                alert("密碼錯誤");
+                                break;
+                            case "3":
+                                alert("無此帳號");
+                                break;
+                        }
+                        
                     },
                     error: function (err)
                     {

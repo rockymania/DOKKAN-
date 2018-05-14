@@ -33,11 +33,11 @@ public partial class Model_M_Login : System.Web.UI.Page
                             aFind = true;
                             if (aDr["Password"].ToString() == aPassword)
                             {
-                                Response.Write("登入成功");
+                                Response.Write("1");
                             }
                             else
                             {
-                                Response.Write("密碼錯誤");
+                                Response.Write("2");
                             }
                             break;
                         }
@@ -46,7 +46,7 @@ public partial class Model_M_Login : System.Web.UI.Page
                     aDr.Close();
 
                     if (aFind == false)
-                        Response.Write("無此帳號");
+                        Response.Write("3");
                 }
 
             }

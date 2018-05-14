@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net;
 
 public partial class Model_M_SignUp : System.Web.UI.Page
 {
@@ -39,8 +40,19 @@ public partial class Model_M_SignUp : System.Web.UI.Page
                 
                 aCon.Close();
             }
+            string aResult = "99";
 
-            Response.Write("帳號創立成功");
+            using (WebClient aWc = new WebClient())
+            {
+                aResult = aWc.DownloadString(string.Format("http://mobiledaddy.net/Dokkan/Model/M_AutoMail.aspx?Accoun={0}&Mail={1}", aAccount, aMail));
+            }
+
+            if (aResult == "1")
+            {
+                Response.Write("帳號創立成功");
+            }
+            else
+                Response.Write(aResult);
         }
         catch(Exception ex)
         {
