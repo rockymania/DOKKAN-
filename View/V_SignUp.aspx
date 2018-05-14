@@ -22,6 +22,10 @@
         .DataList {
             margin:25px;
         }
+        	.error {
+		/* 當格式錯誤時，則新增此類別 */
+		border-color: red !important
+	}
     </style>
 
 </head>
@@ -59,7 +63,7 @@
                         <label for="Mail" class="error" style="color:red;"></label>
                     </div>
 
-                    <div class="DataList"><button type="button" onclick="SignUp()">送出</button></div>
+                    <div class="DataList"><button type="submit" value="Submit">送出</button></div>
                 </div>
                 <div id="content"></div>
                 <div id="footer"></div>
@@ -69,6 +73,9 @@
     $(document).ready(function () {
 
         $("#commentForm").validate({
+            errorPlacement: function (error, element) {
+                return true;
+            },
             rules: {
                 Account: { required: true, minlength: 1 },
                 Password: { required: true, minlength: 1 },
@@ -85,6 +92,11 @@
                 Phone: { number: "只能輸入數字", minlength: "請輸入正確手機格式", maxlength: "請輸入正確手機格式" },
                 PasswordAgain: { equalTo:"密碼不相同"}
             },
+            submitHandler: function (form) {
+                //可以在這裡改成用$.ajax()送出。
+                SignUp();
+                return false; //回傳false會阻止原本的form submit。
+            }    
         });
         })
 
@@ -112,8 +124,6 @@
             {
                 alert(err);
             }
-
-
         });
     }
 

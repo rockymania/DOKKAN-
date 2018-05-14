@@ -24,6 +24,8 @@
     "<!--這是一個段落-->" +
     "<li><a href='#'>客戶服務</a>" +
     "<ul>" +
+    "<li><a href='V_Login.aspx'>登入</a>" +
+    "</li>" +
     "<li><a href='V_MessageBoard.aspx'>留言板</a>" +
     "</li>" +
     "</ul>" +
