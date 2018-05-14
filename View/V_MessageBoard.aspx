@@ -202,11 +202,19 @@
                 var aEmail = $("#Email").val();
                 var aPhone = $("#Phone").val();
                 var aMessage = $("#Message").val();
+                var aAccount = readCookie('Account');
                 $.ajax(
                     {
                         dataType: "text",
                         type: "GET",
-                        data: "&Name=" + aName + "&Email=" + aEmail + "&Phone=" + aPhone + "&Message=" + aMessage,
+                        //data: "&Name=" + aName + "&Email=" + aEmail + "&Phone=" + aPhone + "&Message=" + aMessage,
+                        data: {
+                            "Name": aName,
+                            "Email": aEmail,
+                            "Phone": aPhone,
+                            "Message": aMessage,
+                            "Account": aAccount,
+                        },
                         url: "../Model/M_MessageBoard.aspx",
                         success: function (result) {
                             if (result == "0")
@@ -237,11 +245,18 @@
         }
 
         function GetTotalMessage(iPage) {
+            //var Account = 
+            var aAccount = readCookie('Account');
             $.ajax(
                 {
                     dataType: "text",
                     type: "GET",
-                    data: "&Kind=1" + "&Page=" + iPage,
+                    //data: "&Kind=1" + "&Page=" + iPage,
+                    data: {
+                        "Kind": 1,
+                        "Page": iPage,
+                        "Account": aAccount,
+                    },
                     url: "../Model/M_GetMessageBoard.aspx",
                     success: function (result) {
                         aTotalPage = Math.ceil(result/5);
@@ -254,11 +269,17 @@
         }
 
         function GetMessage(iPage) {
+            var aAccount = readCookie('Account');
             $.ajax(
                 {
                     dataType: "text",
                     type: "GET",
-                    data: "&Kind=2" + "&Page=" + iPage,
+                    //data: "&Kind=2" + "&Page=" + iPage,
+                    data: {
+                        "Kind": 2,
+                        "Page": iPage,
+                        "Account": aAccount,
+                    },
                     url: "../Model/M_GetMessageBoard.aspx",
                     success: function (result) {
                         $("#MessageData").empty();
@@ -271,5 +292,6 @@
         }
     </script>
     <script type="text/javascript" src="../Js/MenuButton.js"></script>
+    <script type="text/javascript" src="../Js/Common.js"></script>
 </body>
 </html>

@@ -34,12 +34,13 @@ public partial class Model_M_MessageBoard : System.Web.UI.Page
         string aPhone = Request.QueryString["Phone"];
         string aMessage = Request.QueryString["Message"];
         string aTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        string aAccount = Request.QueryString["Account"];
 
         MessageData aData = new MessageData(aName, aEmail, aPhone, aMessage, aTime);
 
         try
         {
-            string vStr = "INSERT INTO MessageBoard(Name,Email,Phone,Message,DateTime) VALUES(N'" + aData.Name +
+            string vStr = "INSERT INTO MessageBoard(Account,Name,Email,Phone,Message,DateTime) VALUES(N'" + aAccount + "'," + "N'" + aData.Name +
                             "','" + aData.Email + "','" + aData.Phone + "',N'" + aData.Message + "','" + aTime + " ')";
 
             using (SqlConnection vCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
@@ -52,7 +53,7 @@ public partial class Model_M_MessageBoard : System.Web.UI.Page
             }
             Response.Write("0");
         }
-        catch
+        catch (Exception ex)
         {
             Response.Write("1");
         }
