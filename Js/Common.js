@@ -30,7 +30,7 @@ function checkHaveCookieData(iAccount)
 
     for (var i = 0; i < aCookie.length;i++)
     {
-        if (aCookie[i].indexOf(iAccount + "=") == 0 )
+        if (aCookie[i].indexOf(iAccount + "=") != -1 )
             return true;
     }
     return false;

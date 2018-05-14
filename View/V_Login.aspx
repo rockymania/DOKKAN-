@@ -89,7 +89,9 @@
                     data: "&Account=" + aAccount + "&Password=" + aPassword,
                     success: function (result)
                     {
+                        createCookie('Account', $("#Account").val(), 1);
                         alert(result);
+                        location.href = "V_index.aspx";
                     },
                     error: function (err)
                     {
@@ -102,7 +104,7 @@
 
         }
 </script>
-
+     <script type="text/javascript" src="../Js/Common.js"></script>
 </body>
 </html>
 
