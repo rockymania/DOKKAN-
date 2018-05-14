@@ -69,8 +69,11 @@ public partial class Model_M_GetOrder : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        string aAccount = Request.QueryString["Account"];
         //語法
-        string aStr = "Select * FROM BuyData";
+        string aStr = "Select * FROM BuyData  WHERE UserAccount = '{0}' order by RecTime Desc";
+
+        aStr = string.Format(aStr, aAccount);
 
         //準備連線
         using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
@@ -161,16 +164,6 @@ public partial class Model_M_GetOrder : System.Web.UI.Page
                     jsonData += SlidetEnd;
                     jsonData += string.Format(SlidetBtn, aList[i].SingleNumber);
                 }
-
-
-
-                //for (int i = 0; i < ListData.Count; i++)
-                //{
-                //    jsonData += BaseStr;
-                //    jsonData += string.Format(CreateString, ListData[i].SingleNumber, ListData[i].RecTime, ListData[i].ProductID, ListData[i].ProductCount,"");
-                //    jsonData += EndStr;
-                //    jsonData += string.Format(SliderStr, ListData[i].SingleNumber, ListData[i].SingleNumber);
-                //}
 
                 Response.Write(jsonData);
             }

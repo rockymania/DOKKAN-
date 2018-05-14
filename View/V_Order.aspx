@@ -53,37 +53,8 @@
             <h3>訂單查詢</h3>
         </div>
         <div id="nav">
-        <%--<table id="TopTable">  
-              <tr id="TopTr" class="OrderTr">
-              <td style = "width:400px">訂單標號</td>
-              <td style = "width:200px">日期</td>
-              <td style = "width:80px">狀態</td>
-              <td style = "width:80px">總價</td>
-              <td style = "width:40px">其他</td>
-              </tr>
-                <tr class="OrderTr">
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                </tr>
-        </table>
-                 <div id ="123" class="SliderP">
-            <table style="width:800px">
-                <tr class="DetailTr">
-                    <td style = "width:400px">訂單名稱</td>
-                    <td style = "width:120px">物品數量</td>
-                    <td style = "width:120px">總價</td>
-                    <td style = "width:80px">其他1</td>
-                    <td style = "width:80px">其他2</td>
-                </tr>
-            </table>--%>
         </div>
-       <%--<button onclick="Test(123)">詳細明細</button>--%>
-        <%--</div>--%>
         <div id="content">
-            <%--<button onclick="Test();"></button>--%>
         </div>
         <div id="footer"></div>
     </div>
@@ -99,11 +70,15 @@
             GetOrder();
         }
         function GetOrder() {
+            var aAccount = readCookie('Account');
             $.ajax(
                 {
                     dataType: "text",
                     type: "GET",
                     url: "../Model/M_GetOrder.aspx",
+                    data: {
+                        "Account": aAccount,
+                    },
                     success: function (result) {
                         $("#nav").append(result);
                     },
@@ -115,5 +90,6 @@
     </script>
 
     <script type="text/javascript" src="../Js/MenuButton.js"></script>
+    <script type="text/javascript" src="../Js/Common.js"></script>
 </body>
 </html>
