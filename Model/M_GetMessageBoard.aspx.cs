@@ -32,14 +32,18 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
     {
         int aPage = 0;
         string aKind = "";// 0;
+        string aAccount;
         try
         {
             aKind = Request.QueryString["Kind"].ToString();
+            aAccount = Request.QueryString["Account"];
 
             if (aKind == "1")
             {
                 int aTotalCount = 0;
-                string bStr = "SELECT COUNT(*) as TotalCount FROM MessageBoard";
+                string bStr = "SELECT COUNT(*) as TotalCount FROM MessageBoard Where Account = '{0}'";
+
+                bStr = string.Format(bStr, aAccount);
 
                 using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
                 {
@@ -58,14 +62,21 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
             }
             else {
                 aPage = int.Parse(Request.QueryString["Page"].ToString());
+                aAccount = Request.QueryString["Account"];
 
                 string aDataStart = ((aPage - 1) * 5 + 1).ToString();
                 string aDataEnd = ((aPage - 1) * 5 + 5).ToString();
 
-                string aStr = "SELECT * FROM(SELECT*, ROW_NUMBER() OVER (ORDER BY ID) as ROWNUM FROM MessageBoard) " +
-                              "a WHERE ROWNUM >= {0} and ROWNUM <= {1}";
 
-                aStr = string.Format(aStr, aDataStart, aDataEnd);
+                string aStr = "SELECT* FROM(SELECT*, ROW_NUMBER() OVER (ORDER BY ID) as ROWNUM FROM" +
+                              " (SELECT * FROM MessageBoard Where Account = '{0}')a)b" +
+                              " WHERE b.ROWNUM >= '{1}' and b.ROWNUM <= '{2}'";
+
+
+                //string aStr = "SELECT * FROM(SELECT*, ROW_NUMBER() OVER (ORDER BY ID) as ROWNUM FROM MessageBoard) " +
+                //              "a WHERE ROWNUM >= {0} and ROWNUM <= {1} AND Account = '"+ aAccount+"'";
+
+                aStr = string.Format(aStr, aAccount, aDataStart, aDataEnd);
 
                 List<MessageData> ListData = new List<MessageData>();
 
