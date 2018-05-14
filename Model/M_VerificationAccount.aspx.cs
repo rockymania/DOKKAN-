@@ -39,6 +39,8 @@ public partial class Model_M_VerificationAccount : System.Web.UI.Page
             if (aFind == true)
             {
                 DoVerificationAccount(aAccount);
+                Response.Write("驗證成功");
+                Response.Redirect("http://mobiledaddy.net/Dokkan/View/index.aspx");
             }
             else
             {
@@ -48,7 +50,7 @@ public partial class Model_M_VerificationAccount : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-
+            Response.Write(ex);
         }
     }
 
