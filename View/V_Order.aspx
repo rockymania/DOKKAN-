@@ -61,8 +61,9 @@
         h3{
             text-align:center;
             width:800px;
-            border-radius:20%;
-            border-style:dotted;
+            border-radius:20px;
+            border-style:solid;
+            border-color:sienna;
         }
         button{
             background-color:green;

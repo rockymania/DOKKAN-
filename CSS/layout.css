@@ -86,4 +86,6 @@ ul {
 }
 #LoginList {
     float: right;
+    height:0px;
+/*設定高度是0 他就不會去壓到下方的東西*/
 }

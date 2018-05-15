@@ -67,17 +67,24 @@
         dd > ul {
             width:970px;
         }
+
+        #navTable td{
+            text-align:center;
+        }
+        .TableTop{
+            display:none;
+        }
     </style>
 </head>
 <body>
 <div id="wrapper">
     <div id="header">
         <div id="MenuButton"></div>
-        <p><img id="imgscroll" src="../Image/PageTop.jpg" /></p>
+        <p><img id="imgscroll" src="../Image/ShopCar/ShopCar.png" /></p>
     </div>
     <div id="nav">
-        <table border="1" id="navTable">
-           <tr>
+        <table border="1" id="navTable" class="TableTop">
+           <tr  id="Top">
       	    <td style="width:280px">商品名稱</td>
       	    <td style="width:150px">規格</td>
       	    <td style="width:100px">數量</td>
@@ -225,7 +232,10 @@
         }
 
         function CreateShopCar(result) {
-            $("#navTable").append(result);
+            if (result != "") {
+                $("#navTable").removeClass("TableTop");
+                $("#navTable").append(result);
+            }
         }
 
         function ClearProduct(iID) {
