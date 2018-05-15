@@ -67,10 +67,14 @@
                 <button onclick="Login()">登入</button>
             </div>
 
-            <div align="center" style="margin:50px 0px 0px 0px">沒有帳號嗎?
-                <a href="V_SignUp.aspx">註冊</a>
+            <div class="CenterPos" style="margin:50px 0px 0px 0px">沒有帳號嗎?
+                <a href="V_SignUp.aspx">註冊</a>或
+                <fb:login-button id="Button_FB" scope="public_profile,email" onlogin="checkLoginState();">
+            </fb:login-button>
             </div>
-            
+
+            <div id="status">
+            </div>
         </div>
         <div id="footer"></div>
     </div>
@@ -113,8 +117,88 @@
 
                 }
             )
+    }
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '143835243111044',
+            xfbml: true,
+            version: 'v3.0'
+        });
+        
+    };
 
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    
+    function statusChangeCallback(response) {
+        
+        if (response.status === 'connected') {
+            LoginFBAPI(response.accessToken);
+            
+        } else if (response.status === 'not_authorized') {
+
+            alert("請同意授權");
+        } else {
+
+            alert("請同意授權");
         }
+    }
+
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState() {
+
+        $("#Button_FB").hide();
+
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    // Here we run a very simple test of the Graph API after login is
+    // successful.  See statusChangeCallback() for when this call is made.
+    function LoginFBAPI(iToken) {
+        
+        FB.api('/me', 'get', {
+            access_token: iToken,
+            fields: 'id, name, gender, age_range, birthday, cover, devices, email, first_name, last_name'
+        }, function (response) {
+
+            $.ajax({
+                type: "GET",
+                url: "../Model/M_FBSignUp.aspx",
+                data: {
+                    Mail: response.email,
+                    Name: response.name,
+                    FBID: response.id
+                },
+                success: function (result) {
+                    switch (result)
+                    {
+                        case "1":
+                            alert("登入成功");
+                            location.href = "V_index.aspx";
+                            break;
+                        default:
+                            alert(result);
+                            break;
+                    }
+                },
+                error: function (err) {
+                    alert(err);
+                }
+
+            });
+        });
+
+    }
 </script>
      <script type="text/javascript" src="../Js/Common.js"></script>
 </body>

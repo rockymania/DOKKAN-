@@ -27,7 +27,6 @@ public partial class Model_M_SignUp : System.Web.UI.Page
                 return;
             }
 
-
             using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
             {
                 aCon.Open();
@@ -44,7 +43,7 @@ public partial class Model_M_SignUp : System.Web.UI.Page
 
             using (WebClient aWc = new WebClient())
             {
-                aResult = aWc.DownloadString(string.Format("http://mobiledaddy.net/Dokkan/Model/M_AutoMail.aspx?Account={0}&Mail={1}", aAccount, aMail));
+                aResult = aWc.DownloadString(string.Format("http://mobiledaddy.net/Dokkan/Model/M_AutoMail.aspx?Account={0}&Mail={1}&Name={2}", aAccount, aMail, aName));
             }
 
             if (aResult == "1")
