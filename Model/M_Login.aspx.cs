@@ -33,6 +33,17 @@ public partial class Model_M_Login : System.Web.UI.Page
                             aFind = true;
                             if (aDr["Password"].ToString() == aPassword)
                             {
+                                string aNickName = aDr["NickName"].ToString();
+
+                                //產生一個Cookie
+                                HttpCookie cookie = new HttpCookie("NickName");
+                                //設定單值
+                                cookie.Value = aNickName;
+                                //設定過期日
+                                cookie.Expires = DateTime.Now.AddDays(1);
+                                //寫到用戶端
+                                Response.Cookies.Add(cookie);
+
                                 Response.Write("1");
                             }
                             else
