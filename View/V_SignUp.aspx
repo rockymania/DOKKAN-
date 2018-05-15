@@ -26,6 +26,7 @@
 		/* 當格式錯誤時，則新增此類別 */
 		border-color: red !important
 	}
+
     </style>
 
 </head>
@@ -121,6 +122,7 @@
                     case "1":
                         alert("帳號創立成功");
                         createCookie('Account', $("#Account").val(), 1);
+                        createCookie('NickName', $("#NickName").val(), 1);
                         location.href = "V_index.aspx";
                         break;
                     default:
