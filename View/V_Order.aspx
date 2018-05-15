@@ -16,8 +16,14 @@
             width:800px;
             /*background-color:hotpink;*/
             /*border-spacing:0px 10px;*/
-            margin-top:50px;
+            margin-top:20px;
+            border:groove;
         }
+
+        #TopTable tr td{
+            border-style:double;
+        }
+
         #TopTable #TopTr td{
             font-size:12px;
             font-family:'Microsoft JhengHei';
@@ -30,6 +36,11 @@
             background-color: #feb0bd;
             text-align: center;
             line-height: 18px;
+            /*background-image:url("../Image/Order/Ocean.jpg");*/
+            
+        }
+        .DetailTr >td{
+            border-style:solid;
         }
         .SliderP
         {
@@ -42,6 +53,24 @@
             background-color:palevioletred; 
             text-align: center;
             line-height: 15px;
+            
+        }
+        #nav{
+            width:800px;
+        }
+        h3{
+            text-align:center;
+            width:800px;
+            border-radius:20%;
+            border-style:dotted;
+        }
+        button{
+            background-color:green;
+            font-family:'Microsoft JhengHei UI';
+            cursor: pointer;
+            color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 3px #999;
         }
     </style>
     <title>訂單查詢</title>

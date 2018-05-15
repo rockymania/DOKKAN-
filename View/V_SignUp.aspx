@@ -103,6 +103,7 @@
 
     function SignUp()
     {
+
         $.ajax({
             type: "GET",
             url: "../Model/M_SignUp.aspx",
