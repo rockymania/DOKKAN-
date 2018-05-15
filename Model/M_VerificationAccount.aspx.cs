@@ -40,7 +40,7 @@ public partial class Model_M_VerificationAccount : System.Web.UI.Page
             {
                 DoVerificationAccount(aAccount);
                 Response.Write("驗證成功");
-                Response.Redirect("http://mobiledaddy.net/Dokkan/View/index.aspx");
+                Response.Redirect("http://mobiledaddy.net/Dokkan/View/V_index.aspx");
             }
             else
             {

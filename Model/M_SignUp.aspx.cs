@@ -49,7 +49,7 @@ public partial class Model_M_SignUp : System.Web.UI.Page
 
             if (aResult == "1")
             {
-                Response.Write("帳號創立成功");
+                Response.Write("1");
             }
             else
                 Response.Write(aResult);

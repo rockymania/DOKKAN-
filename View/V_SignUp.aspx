@@ -103,7 +103,6 @@
 
     function SignUp()
     {
-
         $.ajax({
             type: "GET",
             url: "../Model/M_SignUp.aspx",
@@ -117,9 +116,17 @@
             },
             success: function (result)
             {
-                alert(result);
-                createCookie('Account', $("#Account").val(), 1);
-                location.href = "V_index.aspx";
+                switch (result)
+                {
+                    case "1":
+                        alert("帳號創立成功");
+                        createCookie('Account', $("#Account").val(), 1);
+                        location.href = "V_index.aspx";
+                        break;
+                    default:
+                        alert(result);
+                        break;
+                }
             },
             error: function (err)
             {
