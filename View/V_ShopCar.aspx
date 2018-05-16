@@ -314,11 +314,17 @@
 
                 success: function (result)
                 {
-                    alert(result);
-                    var Account = readCookie('Account');
-                    eraseCookie(Account);
-                    location.reload() 
-
+                    if (result == "1")
+                    {
+                        alert(result);
+                        var Account = readCookie('Account');
+                        eraseCookie(Account);
+                        location.reload()
+                    }
+                    else
+                    {
+                        alert("資料錯誤");
+                    }
                 },
                 error: function (err)
                 {

@@ -47,7 +47,10 @@ public partial class Model_M_BuyProduct : System.Web.UI.Page
             string aJsonDataStr = Request["JsonData"].ToString();
             ShopCarData aShopCarData = JsonConvert.DeserializeObject<ShopCarData>(aJsonDataStr);
 
-            HttpCookie aCookie = Request.Cookies["Ricky"];
+            HttpCookie aAccountCookie = Request.Cookies["Account"];
+            string aAccount = aAccountCookie.Value;
+
+            HttpCookie aCookie = Request.Cookies[aAccount];
             //取得cookie字串
             string aCookieData = aCookie.Value;
             //把資料分隔開來
@@ -89,7 +92,7 @@ public partial class Model_M_BuyProduct : System.Web.UI.Page
                     }
                 }
 
-                Response.Write("完成");
+                Response.Write("1");
             }
             catch
             {
@@ -99,7 +102,7 @@ public partial class Model_M_BuyProduct : System.Web.UI.Page
         }
         catch
         {
-            Response.Write("收到的資料有錯誤");
+            Response.Write("2");
         }
     }
 
