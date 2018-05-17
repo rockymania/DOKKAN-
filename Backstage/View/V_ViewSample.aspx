@@ -5,6 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../EasyUI/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../EasyUI/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="../EasyUI/demo/demo.css"/>
+    <script type="text/javascript" src="../EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../EasyUI/jquery.easyui.min.js"></script>
     <title></title>
 </head>
 <body>
