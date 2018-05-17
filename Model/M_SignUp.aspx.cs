@@ -49,6 +49,8 @@ public partial class Model_M_SignUp : System.Web.UI.Page
             if (aResult == "1")
             {
                 Response.Write("1");
+                //創立角色資料塞入SQL
+                UpdateMonthData();
             }
             else
                 Response.Write(aResult);
@@ -56,6 +58,23 @@ public partial class Model_M_SignUp : System.Web.UI.Page
         catch(Exception ex)
         {
             Response.Write(ex);
+        }
+    }
+
+    private void UpdateMonthData()
+    {
+        using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
+        {
+            aCon.Open();
+            //取出目前月份
+            string aTime = DateTime.Now.ToString("yyyyMM");
+
+            string aSqlStr = "UPDATE Month_SignUp SET TotalSignUp = TotalSignUp + 1 WHERE(ID = " + aTime +")";
+
+            using (SqlCommand aCmd = new SqlCommand(aSqlStr, aCon))
+            {
+                aCmd.ExecuteNonQuery();
+            }
         }
     }
 

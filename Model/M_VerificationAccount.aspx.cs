@@ -13,6 +13,7 @@ public partial class Model_M_VerificationAccount : System.Web.UI.Page
         try
         {
             string aAccount = Request["Account"].ToString();
+            string aTime = Request["Region"].ToString();
             bool aFind = false;
 
             using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
@@ -39,6 +40,7 @@ public partial class Model_M_VerificationAccount : System.Web.UI.Page
             if (aFind == true)
             {
                 DoVerificationAccount(aAccount);
+                UpdateMonthData(aTime);
                 Response.Write("驗證成功");
                 Response.Redirect("http://mobiledaddy.net/Dokkan/View/V_index.aspx");
             }
@@ -67,6 +69,21 @@ public partial class Model_M_VerificationAccount : System.Web.UI.Page
                 aCmd.ExecuteNonQuery();
             }
             aCon.Close();
+        }
+    }
+
+    private void UpdateMonthData(string iTime)
+    {
+        using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
+        {
+            aCon.Open();
+
+            string aSqlStr = "UPDATE Month_SignUp SET AuthNum = AuthNum + 1 WHERE(ID = " + iTime + ")";
+
+            using (SqlCommand aCmd = new SqlCommand(aSqlStr, aCon))
+            {
+                aCmd.ExecuteNonQuery();
+            }
         }
     }
 }
