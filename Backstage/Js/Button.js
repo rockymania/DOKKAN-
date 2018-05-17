@@ -7,5 +7,8 @@
     "</div>" +
     "<div style=\"padding:5px 5px 5px 5px\">" +
     "<a href=\"V_LoginData.aspx\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">登入資料</a>" +
+    "</div>" +
+    "<div style=\"padding:5px 5px 5px 5px\">" +
+    "<a href=\"V_SaleData.aspx\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">銷售資料</a>" +
     "</div>" 
 );
