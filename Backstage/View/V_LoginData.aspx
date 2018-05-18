@@ -36,7 +36,7 @@
             </div>
             <div>
                 <p id="chart1data""></p>
-                <p id="chart1" style="width:600px;"></p>
+                <p id="chart1"></p>
                 <p id="chart2data""></p>
                 <p id="chart2"></p>
             </div>
