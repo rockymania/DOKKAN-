@@ -12,7 +12,7 @@ public partial class Backstage_Model_M_SaleData : System.Web.UI.Page
     public class SaleData
     {
         public string Date;
-        public string SaleCount;
+        public int  SaleCount;
     }
 
     public class AllSaleData
@@ -21,11 +21,11 @@ public partial class Backstage_Model_M_SaleData : System.Web.UI.Page
         public SaleData[] rows;
     }
 
+    List<SaleData> aSaleData = new List<SaleData>();
+    List<SaleData> aSQLData = new List<SaleData>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        List<SaleData> aSaleData = new List<SaleData>();
-
         try
         {
             string aProductID = Request["ProductID"].ToString();
@@ -34,38 +34,33 @@ public partial class Backstage_Model_M_SaleData : System.Web.UI.Page
             //取出日期差
             TimeSpan aTS = aTo - aFrom;
 
+            if (aProductID == "")
+                return;
+
             using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
             {
                 aCon.Open();
 
-                for (int i = 0; i < aTS.Days + 1; i++)
+                string aSQLStr = string.Format("SELECT * FROM BuyData WHERE RecTime >= '{0}' AND RecTime< '{1}' AND ProductID = '{2}'", aFrom.ToString("yyyy - MM - dd"),aTo.ToString("yyyy - MM - dd"), aProductID);
+
+                using (SqlCommand aCmd = new SqlCommand(aSQLStr, aCon))
                 {
-                    DateTime aSerchTime = aFrom.AddDays(i);
-                    string aDate = aSerchTime.Year.ToString() + aSerchTime.Month.ToString("00") + aSerchTime.Day.ToString("00");
+                    SqlDataReader aRD = aCmd.ExecuteReader();
 
-                    string aSQLStr = string.Format("SELECT * FROM BuyData WHERE SingleNumber LIKE '{0}%' AND ProductID='{1}'", aDate,aProductID);
-
-                    int aCount = 0;
-
-                    using (SqlCommand aCmd = new SqlCommand(aSQLStr, aCon))
+                    while (aRD.Read())
                     {
-                        SqlDataReader aRD = aCmd.ExecuteReader();
-
-                        while (aRD.Read())
-                        {
-                            aCount += int.Parse(aRD["ProductCount"].ToString());
-                        }
-                        aRD.Close();
-                        aCmd.Clone();
+                        SaleData aData = new SaleData();
+                        aData.Date = aRD["RecTime"].ToString();
+                        aData.SaleCount = int.Parse(aRD["ProductCount"].ToString());
+                        aSQLData.Add(aData);
                     }
-
-                    SaleData zSD = new SaleData();
-                    zSD.SaleCount = aCount.ToString();
-                    zSD.Date = aSerchTime.ToString("yyyy - MM - dd");
-                    aSaleData.Add(zSD);
+                    aRD.Close();
                 }
+
                 aCon.Close();
             }
+
+            SortData(aFrom, aTo);
 
             AllSaleData aAllData = new AllSaleData();
             aAllData.rows = aSaleData.ToArray();
@@ -79,29 +74,37 @@ public partial class Backstage_Model_M_SaleData : System.Web.UI.Page
         {
             Response.Write(ex);
         }
+    }
 
 
+    private void SortData(DateTime iFrom,DateTime iTo)
+    {
+        TimeSpan aTS = iTo - iFrom;
 
+        for (int i = 0; i < aTS.Days; i++)
+        {
+            DateTime aTime = iFrom.AddDays(i);
 
+            SaleData aData = new SaleData();
+            aData.Date = aTime.ToString("yyyy - MM - dd");
+            aData.SaleCount = 0;
+            aSaleData.Add(aData);
+        }
 
-        //List<SaleData> aTest = new List<SaleData>();
+        for (int i = 0; i < aSQLData.Count; i++)
+        {
+            for (int k = 0; k < aSaleData.Count; k++)
+            {
+                string iTime = DateTime.Parse(aSQLData[i].Date).ToString("yyyy - MM - dd");
+                string kTime = DateTime.Parse(aSaleData[k].Date).ToString("yyyy - MM - dd");
 
-
-        //for (int i = 0; i < 2; i++)
-        //{
-        //    SaleData aTest2 = new SaleData();
-        //    aTest2.Date = "123";
-        //    aTest2.SaleCount = i.ToString();
-
-        //    aTest.Add(aTest2);
-        //}
-
-        //AllSaleData aTest3 = new AllSaleData();
-        //aTest3.rows = aTest.ToArray();
-
-        //string aJson = JsonConvert.SerializeObject(aTest3);
-
-        //Response.Write(aJson);
+                if (iTime == kTime)
+                {
+                    aSaleData[k].SaleCount += aSQLData[i].SaleCount;
+                    break;
+                }
+            }
+        }
 
     }
 }
