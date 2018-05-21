@@ -32,6 +32,9 @@
 
             <div id="tb" style="padding:2px 5px;">
                 <input id="Login" name="Login" data-options="panelHeight:'auto'" style="width:360px;"/>
+
+               <input id="LoginCondition" name="LoginCondition" style="width:180px;" data-options="panelHeight:'auto'"/>
+
                 <a href="javascript:QueryOnline()" class="easyui-linkbutton" iconCls="icon-search" style="margin-right:0px">Search</a>
             </div>
             <div>
@@ -195,16 +198,42 @@
         }
 
         function Init() {
+            //主搜尋
             $("#Login").combobox({
                 valueField: 'value',
                 textField: 'text',
                 data: [
                     { value: 1, text: '每月創立帳號分析' },
                     { value: 2, text: '全部帳號驗證分析', selected: true },
-                    //{ value: 3, text: '每月創立帳號驗證對比'},
+                    { value: 3, text: '帳號登錄流水紀錄'},
                 ],
+                onChange: function (value) {
+                    if (value == 3) {
+                        $("#LoginCondition").show();
+                    } else
+                        $("#LoginCondition").hide();
+                }
+            });
+            //副搜尋一號:
+            $("#LoginCondition").combobox({
+                valueField: 'value',
+                textField: 'text',
+                data: [
+                    { value: 101, text: '透過時間以及帳號', selected: true },
+                    { value: 102, text: '僅透過時間' },
+                    { value: 103, text: '僅透過帳號' },
+                ],
+                onChange: function (value) {
+                    //if (value == 3) {
+                    //    $("#LoginAccount").css('display', 'block');
+                    //} else
+                    //    $("#LoginAccount").css('display', 'none');
+                }
             });
         }
+
+       
+
 
         $(document).ready(function () {
             Init();

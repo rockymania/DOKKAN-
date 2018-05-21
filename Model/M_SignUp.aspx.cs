@@ -51,6 +51,7 @@ public partial class Model_M_SignUp : System.Web.UI.Page
                 Response.Write("1");
                 //創立角色資料塞入SQL
                 UpdateMonthData();
+                DoRecordAccountLogin(aAccount, GetIP());
             }
             else
                 Response.Write(aResult);
@@ -109,5 +110,37 @@ public partial class Model_M_SignUp : System.Web.UI.Page
             return true;
 
         return false;
+    }
+
+    //帳號登入紀錄
+    private void DoRecordAccountLogin(string iAccount, string iIP)
+    {
+        if (iIP == "::1")
+            iIP = "127.0.0.1";
+        string aDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        string aSQLStr = string.Format("INSERT INTO LoginAnalysis(Account,IP,LoginTime) VALUES(N'{0}','{1}','{2}')", iAccount, iIP, aDateTime);
+
+        using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
+        {
+            aCon.Open();
+
+            using (SqlCommand aCmd = new SqlCommand(aSQLStr, aCon))
+            {
+                aCmd.ExecuteNonQuery();
+            }
+            aCon.Close();
+        }
+
+    }
+
+    private string GetIP()
+    {
+        string aIP = string.Empty;
+        if (Request.ServerVariables["HTTP_VIA"] == null)
+            aIP = Request.ServerVariables["REMOTE_ADDR"].ToString();
+        else
+            aIP = Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
+
+        return aIP;
     }
 }
