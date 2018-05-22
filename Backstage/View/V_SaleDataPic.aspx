@@ -111,6 +111,9 @@
                 //成功之後，會收到Server端返回的資料，也就是自訂的型別ReportData
                 //有兩個屬性可以用
                 success: function (result) {
+
+                    if (result == "")
+                        return;
                     //先解JSON
                     var aJsonData = JSON.parse(result);
 
@@ -119,9 +122,6 @@
                         data: aJsonData.SaleCount,
                         fillOpacity: 0.5
                     };
-
-                    //chart.xAxis[0].setCategories(aJsonData.Date);
-                    //chart.addSeries(seriesOpts);
                     var xAxis = {
                         categories: aJsonData.Date
                     };
@@ -149,9 +149,7 @@
                     var json = {};
 
                     json.title = title;
-                    //json.subtitle = subtitle;
                     json.xAxis = xAxis;
-                    //json.yAxis = yAxis;
                     json.tooltip = tooltip;
                     json.legend = legend;
                     json.series = series;
@@ -178,9 +176,7 @@
                 },
                 //自訂X軸座標，也可以從Server塞資料進來
                 xAxis: {
-                    categories: ["一月", "二月", "三月", "四月", "五月"
-                        , "六月", "七月", "八月", "九月", "十月"
-                        , "十一月", "十二月",]
+                    categories: ["",]
                 },
                 yAxis: {
                     title: {
@@ -191,8 +187,6 @@
                     formatter: function () {
                         //這地方有什麼資料可用可以開FireBug來看
                         //也可以從後端傳進來
-                        //return '類別1:' + this.points[0].y + '<br/>類別2:' + this.points[1].y;
-
                     },
                     shared: true,
                     crosshairs: true
