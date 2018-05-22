@@ -15,6 +15,6 @@
     "<a href=\"V_SaleData.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">銷售表格顯示</a>" +
     "</div>" +
     "<div style=\"padding:5px 5px 5px 65px\">" +
-    "<a href=\"V_SaleData.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">銷售圖表顯示</a>" +
+    "<a href=\"V_SaleDataPic.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">銷售圖表顯示</a>" +
     "</div>" 
 );
