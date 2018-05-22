@@ -14,11 +14,22 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
     {
 
         int aLoginValue = 0;
+        int aLoginCondition = 0;
+        string aAccount;
+        DateTime aDateFrom;
+        string aFrom;
+        DateTime aDateTo;
+        string aTo;
 
         try
         {
             aLoginValue = int.Parse(Request.QueryString["LoginValue"].ToString());
-
+            aLoginCondition = int.Parse(Request.QueryString["LoginCondition"].ToString());
+            aAccount = Request["Account"].ToString();
+            aDateFrom = DateTime.Parse(Request["DateFrom"].ToString());
+            aFrom = aDateFrom.ToString("yyyy-MM-dd");
+            aDateTo = DateTime.Parse(Request["DateTo"].ToString());
+            aTo = aDateTo.ToString("yyyy-MM-dd");
 
             switch (aLoginValue)
             {
@@ -29,6 +40,7 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
                     GetAccountAuthData();
                     break;
                 case 3:
+                    GetAccountLoginData(aLoginCondition, aAccount, aFrom, aTo);
                     break;
             }
 
@@ -115,16 +127,45 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
         }
     }
 
-    //取得所有帳號某時間內登錄紀錄(可帶入參數判斷特定帳號)。
-    private void GetAccountLoginData()
+    public class AccountLoginData
     {
-        string aStr = "SELECT Auth as AuthKind, count(Auth) as TotalCount FROM AccountData GROUP BY Auth";
+        public string Account;
+        public string IP;
+        public string LoginTime;
+    }
+
+    //取得所有帳號某時間內登錄紀錄(可帶入參數判斷特定帳號)。
+    private void GetAccountLoginData(int iKind, string iAccount, string iDateFrom, string iDateTo)
+    {
+        string aStr = string.Empty;
+        if (iKind == 101)//透過時間以及帳號
+        {
+            if (iAccount == string.Empty) { Response.Write("101"); return; }
+
+            aStr = "select * from LoginAnalysis WHERE Account = '{0}' AND LoginTime >= '{1}' AND LoginTime< '{2}'";
+
+            aStr = string.Format(aStr, iAccount, iDateFrom, iDateTo);
+        }
+        else if (iKind == 102)//僅透過時間
+        {
+            aStr = "select * from LoginAnalysis WHERE LoginTime >= '{0}' AND LoginTime< '{1}'";
+
+            aStr = string.Format(aStr, iDateFrom, iDateTo);
+        }
+        else if (iKind == 103)//僅透過帳號
+        {
+            if (iAccount == string.Empty) { Response.Write("101"); return; }
+
+            aStr = "select * from LoginAnalysis WHERE Account = '{0}'";
+
+            aStr = string.Format(aStr, iAccount);
+        }
 
         using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
         {
             aCon.Open();
 
-            List<AuthData> ListData = new List<AuthData>();
+            List<AccountLoginData> ListData = new List<AccountLoginData>();
 
             using (SqlCommand aCmd = new SqlCommand(aStr, aCon))
             {
@@ -132,13 +173,14 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
 
                 while (aReader.Read())
                 {
-                    AuthData aData = new AuthData();
-                    aData.AuthKind = int.Parse(aReader["AuthKind"].ToString());
-                    aData.TotalCount = int.Parse(aReader["TotalCount"].ToString());
+                    AccountLoginData aData = new AccountLoginData();
+                    aData.Account = aReader["Account"].ToString();
+                    aData.IP = aReader["IP"].ToString();
+                    aData.LoginTime = aReader["LoginTime"].ToString();
                     ListData.Add(aData);
                 }
             }
-            AuthData[] AuthData3;
+            AccountLoginData[] AuthData3;
             AuthData3 = ListData.ToArray();
 
             string jsonData = JsonConvert.SerializeObject(AuthData3, Formatting.Indented);

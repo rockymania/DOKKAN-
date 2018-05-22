@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="V_LoginData.aspx.cs" Inherits="Backstage_View_V_LoginData" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="V_LoginDataPic.aspx.cs" Inherits="Backstage_View_V_LoginDataPic" %>
 
 <!DOCTYPE html>
 
@@ -11,21 +11,9 @@
     <link rel="stylesheet" type="text/css" href="../EasyUI/demo/demo.css"/>
     <script type="text/javascript" src="../EasyUI/jquery.min.js"></script>
     <script type="text/javascript" src="../EasyUI/jquery.easyui.min.js"></script>
-
-<%--    <script type="text/javascript" src="../../plugins/jqplot/jquery.jqplot.js"></script>
-    <script type="text/javascript" src="../../plugins/jqplot/jqplot.pieRenderer.js"></script>
-    <script type="text/javascript" src="../../plugins/jqplot/jqplot.donutRenderer.js"></script>
-
-    <script type="text/javascript" src="../../plugins/jqplot/jqplot.barRenderer.js"></script>
-    <script type="text/javascript" src="../../plugins/jqplot/jqplot.categoryAxisRenderer.js"></script>
-
-    <script type="text/javascript" src="../../plugins/jqplot/jqplot.pointLabels.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../plugins/jqplot/jquery.jqplot.css" />
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/smoothness/jquery-ui.css" />
-
     <%--圖表用的--%>
-    <%--<script src="https://code.highcharts.com/highcharts.src.js"></script>--%>
-    <title>登入資料-文字版</title>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <title>登入資料-圖表版</title>
 </head>
 <body>
        <div id="cc" class="easyui-layout" style="width:90%;height:720px;"><%-- 建立一個layout --%>
@@ -44,8 +32,8 @@
                 </div>
             </div>
 
-            <table id="AccountTable" class="easyui-datagrid" title="帳號分析" style="width:100%;height:95%;"
-               data-options="rownumbers:true,singleSelect:true,method:'get',toolbar:'#tb',footer:'#ft'"></table>
+<%--            <table id="AccountTable" class="easyui-datagrid" title="帳號分析" style="width:100%;height:95%;"
+               data-options="rownumbers:true,singleSelect:true,method:'get',toolbar:'#tb',footer:'#ft'"></table>--%>
 
             <div>
                 <p id="chart1data""></p>

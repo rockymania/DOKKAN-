@@ -6,7 +6,13 @@
     "<a href=\"V_index.aspx\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">1</a>" +
     "</div>" +
     "<div style=\"padding:5px 5px 5px 5px\">" +
-    "<a href=\"V_LoginData.aspx\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">登入資料</a>" +
+    "<a href=\"javascript:OpenAccountData()\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">登入資料(點選)</a>" +
+    "</div>" +
+    "<div id=\"ShowAccountTable\" style=\"padding:5px 5px 5px 65px;display:none;\">" +
+    "<a href=\"V_LoginData.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">登入資料表格顯示</a>" +
+    "</div>" +
+    "<div id=\"ShowAccountPic\" style=\"padding:5px 5px 5px 65px;display:none;\">" +
+    "<a href=\"V_LoginDataPic.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">登入資料圖表顯示</a>" +
     "</div>" +
     "<div style=\"padding:5px 5px 5px 5px\">" +
     "<a href=\"javascript:OpenSaleData()\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">單項商品銷售</a>" +
@@ -41,4 +47,10 @@ function OpenSaleData()
     $("#ShowTable").slideToggle();
     $("#ShowTable").resize();
     $("#ShowPic").resize();
+}
+function OpenAccountData() {
+    $("#ShowAccountTable").slideToggle();
+    $("#ShowAccountPic").slideToggle();
+    $("#ShowAccountTable").resize();
+    $("#ShowAccountPic").resize();
 }
