@@ -62,6 +62,7 @@
         function QueryOnline() {
             var LoginValue = $("#Login").val();
             var LoginCondition = $("#LoginCondition").val();
+            var Kind = 2;
             
             $('#chart1').empty();
             $('#chart2').empty();
@@ -71,38 +72,37 @@
             var aDateTo = $("#DateTo").datebox("getValue");
             var aAccount = $("#Account").val();
 
-            $.ajax(
-                {
-                    dataType: "text",
-                    type: "GET",
-                    url: "../Model/M_GetLoginData.aspx",
-                    data: {
-                        "LoginValue": LoginValue,
-                        "DateFrom": aDateFrom,
-                        "DateTo": aDateTo,
-                        "Account": aAccount,
-                        "LoginCondition": LoginCondition,
+            var aUrl = "../Model/M_GetLoginData.aspx?Kind=" + Kind +"&LoginValue=" + LoginValue + "&DateFrom=" + aDateFrom + "&DateTo=" + aDateTo + "&Account=" + Account + "&LoginCondition=" + LoginCondition;
 
+            if (LoginValue == 1) {
+                $("#AccountTable").datagrid({
+                    url: aUrl,
+                    //width: "auto", //自動寬度
+                    columns: [[
+                        { field: 'AuthNum', title: '驗證狀態', width: 150, align: 'center' },
+                        { field: 'TotalSignUp', title: '人數', width: 150, align: 'center' },
+                        { field: 'Rate', title: '平均', width: 150, align: 'center' },
+                    ]],
+                    showFooter: true,
+                    detailFormatter: function (index, row) {
+                        return '<div style="padding:2px"><table class="ddv"></table></div>';
                     },
-                    success: function (result) {
-                        if (LoginValue == 2)
-                            QueryBar(result);
-                        else if (LoginValue == 1) {
-                            QuertCharBar(result);
-                            //QueryCharBarCompare(result);
-                        } else if (LoginValue == 3) {
-                            if (result == "101") {
-                                alert("請輸入帳號");
-                                return;
-                            }
-                            //QueryLoginData(result, LoginCondition);
-                        }
+                })
+            } else if (LoginValue == 2) {
 
+                $("#AccountTable").datagrid({
+                    url: aUrl,
+                    //width: "auto", //自動寬度
+                    columns: [[
+                        { field: 'AuthString', title: '驗證狀態', width: 150, align: 'center' },
+                        { field: 'TotalCount', title: '人數', width: 150, align: 'center'}, 
+                    ]],
+                    showFooter: true,
+                    detailFormatter: function (index, row) {
+                        return '<div style="padding:2px"><table class="ddv"></table></div>';
                     },
-                    error: function () {
-                        alert("error");
-                    }
-                });
+                })
+            }
         }
 
         function QueryCharBarCompare(result) {

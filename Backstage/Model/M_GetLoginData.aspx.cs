@@ -20,6 +20,7 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
         string aFrom;
         DateTime aDateTo;
         string aTo;
+        int aKind;
 
         try
         {
@@ -30,14 +31,15 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
             aFrom = aDateFrom.ToString("yyyy-MM-dd");
             aDateTo = DateTime.Parse(Request["DateTo"].ToString());
             aTo = aDateTo.ToString("yyyy-MM-dd");
+            aKind = int.Parse(Request.QueryString["Kind"].ToString());
 
             switch (aLoginValue)
             {
                 case 1:
-                    GetMonthSignAuthData();
+                    GetMonthSignAuthData(aKind);
                     break;
                 case 2:
-                    GetAccountAuthData();
+                    GetAccountAuthData(aKind);
                     break;
                 case 3:
                     GetAccountLoginData(aLoginCondition, aAccount, aFrom, aTo);
@@ -58,34 +60,65 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
         public int AuthNum;
     }
 
+    public class AllMonthSignData
+    {
+        public int total;
+        public MonthSignAuthData[] rows;
+        public MonthSign_FooterData[] footer;
+    }
+
+    public class MonthSign_FooterData
+    {
+        public int TotalSignUp;
+        public int AuthNum;
+        public string Rate;
+    }
+
     //取得每個月的帳號註冊人數跟驗證人數
-    private void GetMonthSignAuthData()
+    private void GetMonthSignAuthData(int iKind)
     {
         string aStr = "Select * from Month_SignUp";
         using (SqlConnection aCon = new SqlConnection("Data Source=184.168.47.10;Integrated Security=False;User ID=MobileDaddy;PASSWORD=Aa54380438!;Connect Timeout=15;Encrypt=False;Packet Size=4096"))
         {
             aCon.Open();
             List<MonthSignAuthData> ListData = new List<MonthSignAuthData>();
-
+            List<MonthSign_FooterData> Footer = new List<MonthSign_FooterData>();
             using (SqlCommand aCmd = new SqlCommand(aStr, aCon))
             {
                 SqlDataReader aReader = aCmd.ExecuteReader();
-
+                MonthSign_FooterData aFooter = new MonthSign_FooterData();
                 while (aReader.Read())
                 {
                     MonthSignAuthData aData = new MonthSignAuthData();
                     aData.ID = int.Parse(aReader["ID"].ToString());
                     aData.TotalSignUp = int.Parse(aReader["TotalSignUp"].ToString());
+                    aFooter.TotalSignUp += aData.TotalSignUp;
                     aData.AuthNum = int.Parse(aReader["AuthNum"].ToString());
+                    aFooter.AuthNum += aData.AuthNum;
                     ListData.Add(aData);
                 }
+                aFooter.Rate = Math.Round(Math.Abs(aFooter.AuthNum) / 1F / Math.Abs(aFooter.TotalSignUp) / 1F * 100F, 2) + "%";
+                Footer.Add(aFooter);
+                aReader.Close();
             }
-            MonthSignAuthData[] SignAuthData;
-            SignAuthData = ListData.ToArray();
+            if(iKind == 1)
+            {
+                MonthSignAuthData[] SignAuthData;
+                SignAuthData = ListData.ToArray();
 
-            string jsonData = JsonConvert.SerializeObject(SignAuthData, Formatting.Indented);
+                string jsonData = JsonConvert.SerializeObject(SignAuthData, Formatting.Indented);
 
-            Response.Write(jsonData);
+                Response.Write(jsonData);
+            }
+            else
+            {
+                AllMonthSignData aResult = new AllMonthSignData();
+                aResult.rows = ListData.ToArray();
+                aResult.footer = Footer.ToArray();
+                string json_data = JsonConvert.SerializeObject(aResult, Formatting.Indented);
+                Response.Write(json_data);
+            }
+            
         }
     }
 
@@ -93,10 +126,23 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
     {
         public int AuthKind;
         public int TotalCount;
+        public string AuthString;
+    }
+
+    public class AllAuthData
+    {
+        public int total;
+        public AuthData[] rows;
+        public Account_FooterData[] footer;
+    }
+
+    public class Account_FooterData
+    {
+        public int TotalCount;
     }
 
     //取得目前所有註冊帳號中，有收到信驗證的帳號跟未驗證的帳號
-    private void GetAccountAuthData()
+    private void GetAccountAuthData(int iKind)
     {
         string aStr = "SELECT Auth as AuthKind, count(Auth) as TotalCount FROM AccountData GROUP BY Auth";
 
@@ -105,25 +151,43 @@ public partial class Backstage_Model_M_GetLoginData : System.Web.UI.Page
             aCon.Open();
 
             List<AuthData> ListData = new List<AuthData>();
-
+            List<Account_FooterData> Footer = new List<Account_FooterData>();
             using (SqlCommand aCmd = new SqlCommand(aStr, aCon))
             {
                 SqlDataReader aReader = aCmd.ExecuteReader();
-
+                Account_FooterData aFooter = new Account_FooterData();
                 while (aReader.Read())
                 {
                     AuthData aData = new AuthData();
+                    
                     aData.AuthKind = int.Parse(aReader["AuthKind"].ToString());
+                    if (aData.AuthKind == 0)
+                        aData.AuthString = "未驗證人數";
+                    else
+                        aData.AuthString = "已驗證人數";
                     aData.TotalCount = int.Parse(aReader["TotalCount"].ToString());
+                    aFooter.TotalCount += aData.TotalCount;
                     ListData.Add(aData);
                 }
+                Footer.Add(aFooter);
+                aReader.Close();
             }
-            AuthData[] AuthData3;
-            AuthData3 = ListData.ToArray();
 
-            string jsonData = JsonConvert.SerializeObject(AuthData3, Formatting.Indented);
-
-            Response.Write(jsonData);
+            if (iKind==1)
+            {
+                AuthData[] AuthData3;
+                AuthData3 = ListData.ToArray();
+                string jsonData = JsonConvert.SerializeObject(AuthData3, Formatting.Indented);
+                Response.Write(jsonData);
+            }
+            else
+            {
+                AllAuthData aResult = new AllAuthData();
+                aResult.rows = ListData.ToArray();
+                aResult.footer = Footer.ToArray();
+                string json_data = JsonConvert.SerializeObject(aResult, Formatting.Indented);
+                Response.Write(json_data);
+            }
         }
     }
 

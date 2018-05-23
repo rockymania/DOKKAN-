@@ -50,7 +50,7 @@
         function QueryOnline() {
             var LoginValue = $("#Login").val();
             var LoginCondition = $("#LoginCondition").val();
-            
+            var Kind = 1;
             $('#chart1').empty();
             $('#chart2').empty();
             $('#chart1data').empty();
@@ -70,6 +70,7 @@
                         "DateTo": aDateTo,
                         "Account": aAccount,
                         "LoginCondition": LoginCondition,
+                        "Kind": Kind,
 
                     },
                     success: function (result) {
