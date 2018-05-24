@@ -33,7 +33,7 @@
     "<a href=\"V_SaleDataPic.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">商品調整</a>" +
     "</div>" +
     "<div style=\"padding:5px 5px 5px 5px\">" +
-    "<a href=\"javascript:OpenShopButton()\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">後台留言板管理</a>" +
+    "<a href=\"V_MessageBoardData.aspx\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">後台留言板管理</a>" +
     "</div>" +
     ////////////跳出視窗////////////
     "<div id=\"JumpWindow\" class=\"easyui-window\" title=\"留言訊息\" data-options=\"closed:true\" style=\"width:40%;height:40%\">" +
