@@ -1,5 +1,8 @@
 ﻿$("#MenuButton").html(
     "<ul class ='DropMenu'>" +
+    "<!--這是一個段落-->" +
+    "<li><a href='V_Index.aspx'>首頁</a>" +
+    "</li> " +
         "<!--這是一個段落-->" +
         "<li><a href='V_ImageMain.aspx'>關於我們</a>" +
         "</li> " +
