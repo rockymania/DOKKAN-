@@ -100,6 +100,10 @@
         .button {
             display:inline-block;
         }
+        .ReportMessage{
+            color:red;
+            font-weight:bold;
+        }
     </style>
 </head>
 <body>

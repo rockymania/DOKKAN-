@@ -17,6 +17,8 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
         public string Phone;
         public string Message;
         public string DateTime;
+        public string Status;
+        public string Report;
     }
     private string CreateString = "<table class=\"Toptable\">" +
                                    "<tr class=\"Messagetable\">" +
@@ -26,7 +28,11 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
                                    "<tr>" +
                                    "<td><b>回報內容:{2}</b></td>" +
                                    "</tr>" +
+                                   "<tr>"+
+                                   "<td {3}><hr><b>{4}</b></td>"+
+                                   "</tr>"+
                                    "</table>";
+    private string AddClass = "class=\"ReportMessage\"";
     //取得留言板資料。
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -41,7 +47,7 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
             if (aKind == "1")
             {
                 int aTotalCount = 0;
-                string bStr = "SELECT COUNT(*) as TotalCount FROM MessageBoard Where Account = '{0}'";
+                string bStr = "SELECT COUNT(*) as TotalCount FROM MessageBoard";// Where Account = '{0}'";
 
                 bStr = string.Format(bStr, aAccount);
 
@@ -68,15 +74,18 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
                 string aDataEnd = ((aPage - 1) * 5 + 5).ToString();
 
 
+                //string aStr = "SELECT* FROM(SELECT*, ROW_NUMBER() OVER (ORDER BY ID) as ROWNUM FROM" +
+                //              " (SELECT * FROM MessageBoard Where Account = '{0}')a)b" +
+                //              " WHERE b.ROWNUM >= '{1}' and b.ROWNUM <= '{2}'";
                 string aStr = "SELECT* FROM(SELECT*, ROW_NUMBER() OVER (ORDER BY ID) as ROWNUM FROM" +
-                              " (SELECT * FROM MessageBoard Where Account = '{0}')a)b" +
-                              " WHERE b.ROWNUM >= '{1}' and b.ROWNUM <= '{2}'";
-
+                              " (SELECT * FROM MessageBoard)a)b" +
+                              " WHERE b.ROWNUM >= '{0}' and b.ROWNUM <= '{1}'";
 
                 //string aStr = "SELECT * FROM(SELECT*, ROW_NUMBER() OVER (ORDER BY ID) as ROWNUM FROM MessageBoard) " +
                 //              "a WHERE ROWNUM >= {0} and ROWNUM <= {1} AND Account = '"+ aAccount+"'";
 
-                aStr = string.Format(aStr, aAccount, aDataStart, aDataEnd);
+                aStr = string.Format(aStr, aDataStart, aDataEnd);
+                //aStr = string.Format(aStr, aAccount, aDataStart, aDataEnd);
 
                 List<MessageData> ListData = new List<MessageData>();
 
@@ -95,6 +104,8 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
                             aData.Message = aDataReader["Message"].ToString();
                             aData.Phone = aDataReader["Phone"].ToString();
                             aData.DateTime = aDataReader["DateTime"].ToString();
+                            aData.Status = aDataReader["Status"].ToString();
+                            aData.Report = aDataReader["Report"].ToString();
                             ListData.Add(aData);
                         }
                     }
@@ -103,7 +114,10 @@ public partial class Model_M_GetMessageBoard : System.Web.UI.Page
 
                     for (int i = 0; i < ListData.Count; i++)
                     {
-                        jsonData += string.Format(CreateString, ListData[i].Name, ListData[i].DateTime, ListData[i].Message);
+                        if (ListData[i].Status == "1")
+                            jsonData += string.Format(CreateString, ListData[i].Name, ListData[i].DateTime, ListData[i].Message, AddClass, ListData[i].Report);
+                        else
+                            jsonData += string.Format(CreateString, ListData[i].Name, ListData[i].DateTime, ListData[i].Message, "","");
                     }
 
                     Response.Write(jsonData);
