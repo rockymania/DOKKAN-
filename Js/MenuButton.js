@@ -31,8 +31,25 @@
                     "</ul>" +
                     "</li>" +
     "<!--這是一個段落-->" +
-    "</ul >"
+    "</ul >" +
+    "<div><img id=\"gotop\" src =\"..\\Image\\ArrowUP.png\"></div>"
 );
+
+
+    //$(window).scroll(function () {
+    //    if ($(this).scrollTop() > 300) {
+    //        $('#gotop').fadeIn("fast");
+    //    } else {
+    //        $('#gotop').stop().fadeOut("fast");
+    //    }
+    //});
+
+$("#gotop").click(function () {
+    jQuery("html,body").animate({
+        scrollTop: 0
+    }, 1000);
+});
+
 
 //$(function () {
 //    $(window).load(function () {

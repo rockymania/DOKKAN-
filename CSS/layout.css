@@ -89,3 +89,37 @@ ul {
     height:0px;
 /*設定高度是0 他就不會去壓到下方的東西*/
 }
+
+/*#gotop {
+    position: fixed;
+    border-radius: 50px;
+    right: 20px;
+    bottom: 30px;
+    padding: 10px 16px;
+    font-size: 25px;
+    width:40px;
+    height:40px;
+    color: #FAFCFD;
+    cursor: pointer;
+    z-index: 1000;
+}*/
+
+#gotop {
+    position: fixed;
+    bottom: 5px; /* 與下方的距離, 也可改為百分比, 即為距離螢幕下方的百分比 */
+    right: 5px; /* 與右方的距離 */
+    width: 40px; /* 按鈕原始寬度 */
+    height: 40px; /* 按鈕原始高度 */
+    opacity: 0.4; /* 按鈕原始透明度 */
+    z-index: 10;
+    cursor: pointer;
+    transition: all .5s; /* 動畫效果 持續期間 */
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+}
+
+#gotop:hover { /* 滑鼠經過按鈕時 */
+    opacity: 1; /* 透明度 */
+    width: 80px; /* 按鈕寬度 */
+    height: 80px; /* 按鈕高度 */
+}
