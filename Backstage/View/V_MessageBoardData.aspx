@@ -30,11 +30,28 @@
                 <a href="javascript:QueryOnline(0)" class="easyui-linkbutton" iconCls="icon-search" style="margin-right:0px">Search ALL</a>
                 <a href="javascript:QueryOnline(1)" class="easyui-linkbutton" iconCls="icon-search" style="margin-right:0px;margin-left:50px;">Search 已回覆</a>
                 <a href="javascript:QueryOnline(2)" class="easyui-linkbutton" iconCls="icon-search" style="margin-right:0px;margin-left:50px;">Search 尚未回覆</a>
+                <a href="javascript:BusApi()" class="easyui-linkbutton" iconCls="icon-search" style="margin-right:0px;margin-left:50px;">Bus</a>
             </div>
             <%--<div id="ft" style="padding:2px 5px";></div>--%>
 		</div>
 	</div>
     <script>
+        function BusApi() {
+            var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeByFrequency/City/Keelung/402?$orderby=Direction%20&$top=30&$format=JSON";
+            $('#tt').datagrid({
+                title: '公車系統',
+                iconCls: 'icon-edit',
+                singleSelect: true,
+                url: aUrl,
+                columns: [[
+                    { field: 'PlateNumb', title: 'PlateNumb', width: 100, align: 'center' },
+                    { field: 'RouteName.Zh_tw', title: 'RouteName', width: 200, align: 'center', formatter: function (value, row) { return row.RouteName.Zh_tw } },
+                    { field: 'Direction', title: 'Direction', width: 150, align: 'center', formatter: function (value, row) { if (row.Direction == 0) return "往基隆"; else return "往堵南里" } },
+                ]],
+            });
+        };
+
+
         function QueryOnline(iKind) {
             var aUrl = "../Model/M_GetMessageBoardData.aspx?Kind=" + 1 + "&SearchKind=" + iKind;//+ "&LoginValue=" + LoginValue + "&DateFrom=" + aDateFrom + "&DateTo=" + aDateTo + "&Account=" + Account + "&LoginCondition=" + LoginCondition;
 
@@ -45,13 +62,14 @@
                 //height: 250,
                 singleSelect: true,
                 //idField: 'itemid',
+                width: 'auto',
                 url: aUrl,
                 columns: [[
-                    { field: 'Name', title: 'Name', width: 60, align: 'center' },
-                    { field: 'Message', title: 'Message', width: 200, align: 'center' },
-                    { field: 'DateTime', title: 'DateTime', width: 150, align: 'center' },
+                    { field: 'Name', title: 'Name', align: 'center' },
+                    { field: 'Message', title: 'Message', align: 'center' },
+                    { field: 'DateTime', title: 'DateTime',  align: 'center' },
                     {
-                        field: 'Status', title: 'Status', width: 60, align: 'center'
+                        field: 'Status', title: 'Status', align: 'center'
                     },
                     {
                         field: 'Report', title: 'Report', width: 250, editor: 'text', align: 'center',
