@@ -67,14 +67,19 @@
         function BusApi2(result) {
             var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Keelung/402?$select=PlateNumb%2CStopName&$top=30&$format=JSON";
 
-
-
             var array = [];
             var columns = [];
 
             columns.push(array);
 
             columns[0].push({ field: 'PlateNumb', title: 'PlateNumb' });
+
+            columns[0].push({ field: 'StopName.Zh_tw', title: 'StopName.Zh_tw', formatter: function (value, row) { return row.StopName.Zh_tw } });
+            columns[0].push({ field: 'StopName.En', title: 'StopName.En', formatter: function (value, row) { return row.StopName.En } });
+                //columns[0].push({ field: 'StopName.Zh_tw', title: 'StopName.Zh_tw', formatter: function (value, row) { return row.StopName.Zh_tw } });
+                //columns[0].push({ field: 'StopName.En', title: 'StopName.En', formatter: function (value, row) { return row.StopName.En } });
+            
+
             columns[0].push({ field: 'StopName', title: 'StopName', formatter: function (value, row) { return row.StopName.Zh_tw} });
 
             for (var i = 0; i < result[0].StopName.length; i++) {
