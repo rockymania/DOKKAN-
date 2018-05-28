@@ -37,20 +37,58 @@
 	</div>
     <script>
         function BusApi() {
-            var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeByFrequency/City/Keelung/402?$orderby=Direction%20&$top=30&$format=JSON";
-            $('#tt').datagrid({
-                title: '公車系統',
-                iconCls: 'icon-edit',
-                singleSelect: true,
-                url: aUrl,
-                columns: [[
-                    { field: 'PlateNumb', title: 'PlateNumb', width: 100, align: 'center' },
-                    { field: 'RouteName.Zh_tw', title: 'RouteName', width: 200, align: 'center', formatter: function (value, row) { return row.RouteName.Zh_tw } },
-                    { field: 'Direction', title: 'Direction', width: 150, align: 'center', formatter: function (value, row) { if (row.Direction == 0) return "往基隆"; else return "往堵南里" } },
-                ]],
-            });
-        };
+            var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Keelung/402?$select=PlateNumb%2CStopName&$top=30&$format=JSON";
 
+            $.ajax({
+                type: "GET",
+                url: "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Keelung/402?$select=PlateNumb%2CStopName&$top=30&$format=JSONel/M_GetMessageBoardData.aspx",
+                success: function (result) {
+                    BusApi2(result);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+
+
+            //$('#tt').datagrid({
+            //    title: '公車系統',
+            //    iconCls: 'icon-edit',
+            //    singleSelect: true,
+            //    url: aUrl,
+            //    data: aData,
+            //    columns: [[
+            //        { field: 'PlateNumb', title: 'PlateNumb', width: 100, align: 'center' },
+            //    //    { field: 'StopName.Zh_tw', title: 'StopName', width: 200, align: 'center', formatter: function (value, row) { return row.StopName.Zh_tw } },
+            //    //    { field: 'Direction', title: 'Direction', width: 150, align: 'center', formatter: function (value, row) { if (row.Direction == 0) return "往基隆"; else return "往堵南里" } },
+            //    ]],
+            //});
+        };
+        function BusApi2(result) {
+            var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Keelung/402?$select=PlateNumb%2CStopName&$top=30&$format=JSON";
+
+
+
+            var array = [];
+            var columns = [];
+
+            columns.push(array);
+
+            columns[0].push({ field: 'PlateNumb', title: 'PlateNumb' });
+            columns[0].push({ field: 'StopName', title: 'StopName', formatter: function (value, row) { return row.StopName.Zh_tw} });
+
+            for (var i = 0; i < result[0].StopName.length; i++) {
+                //columns[0].push({ field: 'PlateNumb', title: 'PlateNumb' });
+                    //for (var j = 0; j < result[i].StopName.length; j++)
+                    //    columns[0].push({ field: 'StopName', title: 'PlateNumb', formatter: function (value, row) { return row.StopName[value] } });
+            };
+
+            $('#tt').datagrid({
+                columns: columns,
+                dataType: 'json',
+                url: aUrl
+            });
+        }
 
         function QueryOnline(iKind) {
             var aUrl = "../Model/M_GetMessageBoardData.aspx?Kind=" + 1 + "&SearchKind=" + iKind;//+ "&LoginValue=" + LoginValue + "&DateFrom=" + aDateFrom + "&DateTo=" + aDateTo + "&Account=" + Account + "&LoginCondition=" + LoginCondition;
