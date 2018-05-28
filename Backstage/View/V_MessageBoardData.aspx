@@ -36,20 +36,23 @@
 		</div>
 	</div>
     <script>
+       
+
         function BusApi() {
-            var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Keelung/402?$select=PlateNumb%2CStopName&$top=30&$format=JSON";
+            var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Keelung/402?$filter=Direction%20eq%20%20'0'&$top=30&$format=JSON";
+            ////"http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Keelung/402?$select=PlateNumb%2CStopName&$top=30&$format=JSON";
 
             $.ajax({
                 type: "GET",
-                url: "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Keelung/402?$select=PlateNumb%2CStopName&$top=30&$format=JSONel/M_GetMessageBoardData.aspx",
+                url: aUrl,
                 success: function (result) {
-                    BusApi2(result);
+                    BusApi3(result);
                 },
                 error: function (err) {
                     alert(err);
                 }
             });
-
+            //BusApi3();
 
             //$('#tt').datagrid({
             //    title: '公車系統',
@@ -64,6 +67,47 @@
             //    ]],
             //});
         };
+
+
+        var stops;
+        function BusApi3(result) {
+            var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Keelung/402?$filter=Direction%20eq%20%20'0'&$top=30&$format=JSON";
+            var array = [];
+            var columns = [];
+
+            stops = result[0].Stops;
+            //columns = new Array(41);
+            columns.push(array);
+
+            columns[0].push({
+                field: 'RouteUID', title: 'RouteUID', formatter: function (value, row) {
+                    return row.RouteUID;
+                }
+            });
+
+            $.each(stops, function (i, item) {
+                columns[0].push({
+                    "field": stops[i].StopName.Zh_tw, "title": 'Stops', formatter: function (value, row) {
+                        return stops[i].StopName.Zh_tw;
+                    }
+                });
+
+            });
+
+            columns[0].push({
+                field: 'RouteName.Zh_tw', title: 'RouteName', formatter: function (value, row)
+                {
+                    return row.RouteName.Zh_tw;
+                }
+            });
+
+            $('#tt').datagrid({
+                columns: columns,
+                dataType: 'json',
+                url: aUrl,
+            });
+        }
+
         function BusApi2(result) {
             var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Keelung/402?$select=PlateNumb%2CStopName&$top=30&$format=JSON";
 
@@ -76,17 +120,15 @@
 
             columns[0].push({ field: 'StopName.Zh_tw', title: 'StopName.Zh_tw', formatter: function (value, row) { return row.StopName.Zh_tw } });
             columns[0].push({ field: 'StopName.En', title: 'StopName.En', formatter: function (value, row) { return row.StopName.En } });
-                //columns[0].push({ field: 'StopName.Zh_tw', title: 'StopName.Zh_tw', formatter: function (value, row) { return row.StopName.Zh_tw } });
-                //columns[0].push({ field: 'StopName.En', title: 'StopName.En', formatter: function (value, row) { return row.StopName.En } });
             
 
             columns[0].push({ field: 'StopName', title: 'StopName', formatter: function (value, row) { return row.StopName.Zh_tw} });
 
-            for (var i = 0; i < result[0].StopName.length; i++) {
-                //columns[0].push({ field: 'PlateNumb', title: 'PlateNumb' });
-                    //for (var j = 0; j < result[i].StopName.length; j++)
-                    //    columns[0].push({ field: 'StopName', title: 'PlateNumb', formatter: function (value, row) { return row.StopName[value] } });
-            };
+            //for (var i = 0; i < result[0].StopName.length; i++) {
+            //    //columns[0].push({ field: 'PlateNumb', title: 'PlateNumb' });
+            //        //for (var j = 0; j < result[i].StopName.length; j++)
+            //        //    columns[0].push({ field: 'StopName', title: 'PlateNumb', formatter: function (value, row) { return row.StopName[value] } });
+            //};
 
             $('#tt').datagrid({
                 columns: columns,
