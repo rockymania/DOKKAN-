@@ -20,8 +20,8 @@
     <title>Example</title>
     <style>
         #wrapper{
-            width:980px;
-            margin: 0 auto;
+            width:auto;
+            margin:0 0 0 50px;
         }
         #nav1{
             width:40%;
@@ -33,14 +33,21 @@
         }
        #map {
         height: 400px;
-        width: 100%;
+        width: 50%;
+       }
+       .BusStop1{
+           width:120px;
+           color:gray;
+       }
+        .BusStop2{
+           width:120px;
+           color:red;
        }
     </style>
 </head>
 <body>
 <div id="wrapper">
     <div id="header">
-        <p id="AA"></p>
     </div>
     <div id="chart1" style="width:300px;"></div>  
     <div id="content">
@@ -49,24 +56,39 @@
         </select>
         <select id="BusSelect2" style="width:auto" onchange="GetStopStationMap()">
         </select>
+        <div style="float:right" id="BusInfo"></div>
+            <div id="map" style="float:right"></div>
+        
         <p id="BtnList" style="display:none">
-            <button onclick="javascript:GetTotalBusData()">公車相關資訊</button>
+            <button onclick="javascript:GetBusInfo()">公車相關資訊</button>
             <button onclick="javascript:GetBusStopTimeData()">公車到站資料查詢</button>
+            <button onclick="javascript:GetTotalBusStopData()">公車站牌地圖位置查詢</button>
         </p>
-        <div id="test"></div>
+        <div id="test">
+        </div>
     </div>
     <div id="footer">
         <h3 id ="mapdemo">My Google Maps Demo</h3>
-        <div id="map"></div>
+        
     </div>
 </div>
     <script>
         //功能按鈕出現
         function ShowBtn() {
             $("#BtnList").show();
+
+            //關掉資料
+            $('#BusInfo').empty();
+            $('#test').empty();
+
+            var select = document.getElementById("BusSelect2");
+
+            for (var i = select.options.length - 1; i >= 0; i--) {
+                select.remove(i);
+            }
         }
 
-        function HideBtm() {
+        function HideBtn() {
             $("#BtnList").hide();
         }
 
@@ -74,10 +96,15 @@
         function GetBusStopTimeData() {
             var x = document.getElementById("BusSelect").value;
 
-            var x = document.getElementById("BusSelect").value;
-
             var value2 = window.sessionStorage.getItem("BusStopData" + x + "StopData");
-            if (value2 != null) {
+            var reGet = false;
+
+            if (valueTime != null) {
+                var todayAtMidn = new Date().getTime();
+                if (todayAtMidn - valueTime > 20000)
+                    reGet = true;
+            }
+            if (value2 != null && reGet = false) {
                 $("#mapdemo").html("SetBusStopTimeDataFrom Storage");
                 var objCar = JSON.parse(value2);
                 SetBusStopData(objCar);
@@ -86,11 +113,11 @@
 
             if (x == 0) return;
             if (x < 1000) {
-                var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/Keelung/" + x + "?$format=JSON";
+                var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/Keelung/" + x + "?$filter=Direction%20eq%20'0'%20and%20RouteID%20eq%20'"+x+"'&$orderby=StopSequence&$format=JSON";
 
             } else {
                 var CarNum = x.substring(0, 3);//取得路線號碼
-                var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/Keelung/" + CarNum + "?$format=JSON";
+                var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/Keelung/" + CarNum + "?$filter=Direction%20eq%20'0'%20and%20RouteID%20eq%20'" + x +"'&$orderby=StopSequence&$format=JSON";
             }
 
             $.ajax({
@@ -98,7 +125,8 @@
                 url: aUrl,
                 success: function (result) {
                     SetBusStopData(result);
-                    sessionStorage.setItem("BusStopData" + x +"StopData", JSON.stringify(result));
+                    sessionStorage.setItem("BusStopData" + x + "StopData", JSON.stringify(result));
+                    sessionStorage.setItem("BusStopDataTime" + x + "StopData", new Date().getTime());
                     $("#mapdemo").html("SetBusStopTimeDataFrom Web");
                 },
                 error: function (err) {
@@ -109,6 +137,8 @@
         }
 
         function SetBusStopData(result) {
+            $('#test').empty();
+
             var obj = new Array(result.length)
             for (var i = 0; i < result.length; i++)
                 obj[i] = result[i];
@@ -119,23 +149,57 @@
             for (var i = 0; i < result.length; i++) {
                 var obj2 = new Object();
 
+                //先判斷方向
+                if (obj[i].Direction == "1")
+                    continue;
+
                 obj2.StopName = obj[i].StopName.Zh_tw;//取得停車的站牌
                 //如果string(StopStatus 為1~4或PlateNumb値為-1時) EstimateTime == 空白 反之，EstimateTime有値] 
-                if (obj[i].StopStatus == null)
-                    obj2.EstimateTime = obj[i].EstimateTime;
-                else
-                    obj2.EstimateTime = "目前無車";
+                var selectkind = 0;
 
-                td += '<td>' + obj2.StopName + '</td >';
-                td += '<td>' + obj2.EstimateTime + '</td >';
+                if (obj[i].StopStatus == null) {
+                    obj2.EstimateTime = (obj[i].EstimateTime / 60) + '分內抵達';
+                    selectkind = 1;
+                }
+                else {
+                    var TempStatus = obj[i].StopStatus;
+                    switch (TempStatus) {
+                        case 1:
+                            obj2.EstimateTime = "尚未發車";
+                            break;
+                        case 2:
+                            obj2.EstimateTime = "交管不停靠";
+                            break;
+                        case 3:
+                            obj2.EstimateTime = "末班車已過";
+                            break;
+                        case 4:
+                            obj2.EstimateTime = "今日未營運";
+                            break;
+                        default:
+                            obj2.EstimateTime = "目前無資料";
+                            break;
+                        }
+                }
 
-                table = '<table> <tr>' + td + '</tr> </table>';
+                if (selectkind == 1) {
+                    td += '<td>' + obj2.StopName + '</td>';
+                    td += '<td class="BusStop2">' + obj2.EstimateTime + '</td>';
+                }
+                else {
+                    td += '<td>' + obj2.StopName + '</td>';
+                    td += '<td class="BusStop1">' + obj2.EstimateTime + '</td>';
+                }
+
+                table = ' <tr>' + td + '</tr>';
 
                 td = "";
 
                 total += table;
             }
-            $('#test').append(total);
+            var Top = '<table border="1">';
+            var End = ' </table>'
+            $('#test').append(Top + total + End);
         }
 
         function MakeMap(latpos,lngpos) {
@@ -178,7 +242,7 @@
 
             if (x == 0) return;
             if (x < 1000) {
-                var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Keelung/" + x + "?$filter=Direction%20eq%20'0'&$format=JSON";
+                var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Keelung/" + x + "?$filter=Direction%20eq%20'0'%20and%20RouteID%20eq%20'" + x + "'&$format=JSON";
 
             } else {
                 var CarNum = x.substring(0, 3);//取得路線號碼
@@ -204,7 +268,7 @@
             //只會有一筆
             var obj3 = new Object();
 
-            obj3.label = '---------------------------------------';
+            obj3.label = '------------請選擇站牌------------';
 
             obj3.data = 0;
 
@@ -234,20 +298,52 @@
         }
 
 
-        ////////////取得這公車的基本資料
-        //////////function mySelectBusData2() {
-        //////////    var x = document.getElementById("BusSelect").value;
+        //取得這公車的基本資料
+        function GetBusInfo() {
 
-        //////////    if (x == 0) return;
-        //////////    if (x < 1000) {
-        //////////        var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/Keelung/" + x + "?&$top=30&$format=JSON";
-        //////////        alert(aUrl);
-        //////////    } else {
-        //////////        var CarNum = x.substring(0, 3);//取得路線號碼
-        //////////        var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/Keelung/" + CarNum + "?$filter=RouteID%20eq%20'" + x + "'&$top=30&$format=JSON";
-        //////////        alert(aUrl);
-        //////////    }
-        //////////}
+            var x = document.getElementById("BusSelect").value;
+
+            if (x == 0) return;
+
+            //先判斷本地端是否有資料
+            var value2 = window.sessionStorage.getItem("BusInfo" + x);
+            if (value2 != null) {
+                $("#mapdemo").html("SetBusInfoDataFrom Storage");
+                var objCar = JSON.parse(value2);
+                SetBusInfo(objCar);
+                return;
+            }
+            
+            var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/Keelung?$filter=RouteID%20eq%20'"+x+"'&$format=JSON";
+
+            $.ajax({
+                type: "GET",
+                url: aUrl,
+                success: function (result) {
+                    SetBusInfo(result);
+                    sessionStorage.setItem("BusInfo"+x, JSON.stringify(result));
+                    $("#mapdemo").html("SetBusInfoDataFrom Web");
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        function SetBusInfo(result) {
+            $('#BusInfo').empty();
+            var li = "";
+            var total = "";
+
+            total += "<li>" + result[0].Operators[0].OperatorName.Zh_tw + "</li>";
+            total += "<li>" + result[0].SubRoutes[0].SubRouteName.Zh_tw + "</li>";
+            total += "<li>" + result[0].TicketPriceDescriptionZh + "</li>";
+            total += "<li>" + result[0].DestinationStopNameZh + " : " + result[0].DepartureStopNameZh + "</li>";
+
+            var Top = '<ul>';
+            var End = ' </ul>'
+            $('#BusInfo').append(Top + total + End);
+        }
 
         function GetTotalBusData() {
             var aUrl = "http://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/Keelung?&$format=JSON";
@@ -258,8 +354,18 @@
             }
 
             //先判斷有沒有全部車子的資料 沒有才會要去WEB取
+            var now = new Date();
             var value2 = window.sessionStorage.getItem("TotalBusData");
-            if (value2 != null) {
+            var valueTime = window.sessionStorage.getItem("TotalBusDataTime");
+            var reGet = false;
+
+            if (valueTime != null) {
+                var todayAtMidn = new Date().getTime();
+                if (todayAtMidn - valueTime > 20000)
+                    reGet = true;
+            }
+
+            if (value2 != null && reGet == false) {
                 $("#mapdemo").html("SetBusDataFromStorage");
                 var objCar = JSON.parse(sessionStorage.TotalBusData);
                 SetBusData(objCar);
@@ -272,6 +378,7 @@
                 success: function (result) {
                     SetBusData(result);
                     sessionStorage.setItem("TotalBusData", JSON.stringify(result));
+                    sessionStorage.setItem("TotalBusDataTime", new Date().getTime());
                     $("#mapdemo").html("SetBusDataFromWeb");
                 },
                 error: function (err) {
@@ -286,7 +393,7 @@
 
             var obj3 = new Object();
 
-            obj3.label = '---------------------------------------';
+            obj3.label = '--------請選擇公車----------------';
 
             obj3.data = 0;
 
@@ -303,7 +410,7 @@
 
                 obj2.label = obj[i].SubRoutes[0].SubRouteName.Zh_tw;
 
-                obj2.data = obj[i].SubRoutes[0].SubRouteName.En;
+                obj2.data = obj[i].RouteID;
 
                 var optionBox = document.createElement('option');
 
