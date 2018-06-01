@@ -3,9 +3,6 @@
     "<span style=\"color:blue\" ></span>您好，切換帳號請點這裡<a href=\"V_index.aspx\">登出</a>"+
     "</div>" +
     "<div style=\"padding:5px 5px 5px 5px\">" +
-    "<a href=\"V_index.aspx\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">1</a>" +
-    "</div>" +
-    "<div style=\"padding:5px 5px 5px 5px\">" +
     "<a href=\"javascript:OpenAccountData()\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">登入資料(點選)</a>" +
     "</div>" +
     "<div id=\"ShowAccountTable\" style=\"padding:5px 5px 5px 65px;display:none;\">" +
@@ -27,10 +24,10 @@
     "<a href=\"javascript:OpenShopButton()\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">後台商品管理</a>" +
     "</div>" +
     "<div id=\"AddProduct\" style=\"padding:5px 5px 5px 65px;display:none;\">" +
-    "<a href=\"V_SaleDataPic.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">商品上架</a>" +
+    "<a href=\"V_UploadProduct.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">商品上架</a>" +
     "</div>" +
     "<div id=\"ProductRevision\" style=\"padding:5px 5px 5px 65px;display:none\">" +
-    "<a href=\"V_SaleDataPic.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">商品調整</a>" +
+    "<a href=\"V_ProductList.aspx\" class=\"easyui-linkbutton\" style=\"width:80%;height:50px;\">商品調整</a>" +
     "</div>" +
     "<div style=\"padding:5px 5px 5px 5px\">" +
     "<a href=\"V_MessageBoardData.aspx\" class=\"easyui-linkbutton\" style=\"width:100%;height:50px;\">後台留言板管理</a>" +
